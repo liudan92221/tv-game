@@ -1,0 +1,639 @@
+@media (width: 1920px) {
+  html {
+    font-size: 192px;
+  }
+}
+@media (width: 1280px) {
+  html {
+    font-size: 128px;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin-top: 200px;
+}
+.game-main {
+  width: 6.484375rem;
+  height: 4.38020833rem;
+  position: relative;
+}
+.game-main .stage {
+  width: 5.94791667rem;
+  height: 3.82291667rem;
+  position: absolute;
+  top: 0.359375rem;
+  left: 0.33333333rem;
+}
+.game-main .stage .lawn {
+  width: 5.94791667rem;
+  height: 3.82291667rem;
+  background: url(http://gtms01.alicdn.com/tps/i1/TB1LnvwJXXXXXXEaXXXZ6h3JVXX-1142-734.png) no-repeat;
+  background-size: 5.94791667rem 3.82291667rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+.game-main .stage .view1 {
+  width: 5.94791667rem;
+  height: 4.38020833rem;
+  position: absolute;
+  top: -0.625rem;
+  left: 0;
+  z-index: 3;
+  overflow: hidden;
+}
+.game-main .stage .mask {
+  width: 100%;
+  height: 1.796875rem;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 2;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.game-main .stage .time {
+  width: 0.75520833rem;
+  height: 0.5rem;
+  position: absolute;
+  top: -0.04166667rem;
+  right: 0.08333333rem;
+  z-index: 3;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  font-size: 0.16145833rem;
+  color: #0b0903;
+  line-height: 0.5rem;
+  text-align: center;
+  text-shadow: 0.01041667rem 0.01041667rem 0.01041667rem #000000, 0 0 0.05208333rem #ffffff, 0 0 0.10416667rem #ffffff;
+}
+.game-main .stage .time .t.active {
+  color: #ff1a1c;
+}
+.game-main .stage .block {
+  width: 6.484375rem;
+  height: 4.38020833rem;
+  background: url(http://gtms04.alicdn.com/tps/i4/TB1ZGPEJXXXXXcIXFXXZGqxJXXX-1245-841.png) no-repeat;
+  background-size: 100%;
+  position: absolute;
+  top: -0.359375rem;
+  left: -0.33333333rem;
+  z-index: 3;
+}
+.game-main .stage .arm-view {
+  width: 5.94791667rem;
+  height: 3.82291667rem;
+  background-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  overflow: hidden;
+}
+.game-main .corpse {
+  width: 0.68229167rem;
+  height: 1.27604167rem;
+  background-repeat: no-repeat;
+  background-size: 3.41145833rem 17.86458333rem;
+  position: absolute;
+  top: 0.625rem;
+  left: 0;
+  z-index: 4;
+}
+.game-main .corpse .talk-block {
+  width: 1.71354167rem;
+  height: 0.66145833rem;
+  background-size: 1.71354167rem 1.32291667rem;
+  position: absolute;
+  top: 1.27604167rem;
+  opacity: 0;
+  transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+}
+.game-main .corpse .talk-block.talk {
+  opacity: 1;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+}
+.game-main .corpse .talk-block .text {
+  width: 1.71354167rem;
+  height: 0.52083333rem;
+  position: absolute;
+  top: 0.140625rem;
+  right: 0;
+}
+.game-main .corpse .talk-block .text .t-block {
+  padding: 0.078125rem 0.10416667rem;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  font-size: 0.14583333rem;
+  color: #000000;
+  line-height: 0.17708333rem;
+}
+.game-main .corpse .left-block {
+  right: 0;
+  background-position: 0 0;
+}
+.game-main .corpse .right-block {
+  left: 0;
+  background-position: 0 -0.66145833rem;
+}
+.game-main .corpse1 {
+  background-position: 0 0;
+}
+.game-main .corpse1.left-1 {
+  background-position: 0 0;
+}
+.game-main .corpse1.left-2 {
+  background-position: -0.68229167rem 0;
+}
+.game-main .corpse1.left-3 {
+  background-position: -1.36458333rem 0;
+}
+.game-main .corpse1.left-4 {
+  background-position: -2.046875rem 0;
+}
+.game-main .corpse1.left-5 {
+  background-position: -2.72916667rem 0;
+}
+.game-main .corpse1.right-1 {
+  background-position: 0 -1.27604167rem;
+}
+.game-main .corpse1.right-2 {
+  background-position: -0.68229167rem -1.27604167rem;
+}
+.game-main .corpse1.right-3 {
+  background-position: -1.36458333rem -1.27604167rem;
+}
+.game-main .corpse1.right-4 {
+  background-position: -2.046875rem -1.27604167rem;
+}
+.game-main .corpse1.right-5 {
+  background-position: -2.72916667rem -1.27604167rem;
+}
+.game-main .corpse1.left-fight-1 {
+  background-position: 0 -2.55208333rem;
+}
+.game-main .corpse1.left-fight-2 {
+  background-position: -0.68229167rem -2.55208333rem;
+}
+.game-main .corpse1.left-fight-3 {
+  background-position: -1.36458333rem -2.55208333rem;
+}
+.game-main .corpse1.left-fight-4 {
+  background-position: -2.046875rem -2.55208333rem;
+}
+.game-main .corpse1.left-fight-5 {
+  background-position: -2.72916667rem -2.55208333rem;
+}
+.game-main .corpse1.right-fight-1 {
+  background-position: 0 -3.828125rem;
+}
+.game-main .corpse1.right-fight-2 {
+  background-position: -0.68229167rem -3.828125rem;
+}
+.game-main .corpse1.right-fight-3 {
+  background-position: -1.36458333rem -3.828125rem;
+}
+.game-main .corpse1.right-fight-4 {
+  background-position: -2.046875rem -3.828125rem;
+}
+.game-main .corpse1.right-fight-5 {
+  background-position: -2.72916667rem -3.828125rem;
+}
+.game-main .corpse1.left-die-1 {
+  background-position: 0 -15.3125rem;
+}
+.game-main .corpse1.left-die-2 {
+  background-position: -0.68229167rem -15.3125rem;
+}
+.game-main .corpse1.left-die-3 {
+  background-position: -1.36458333rem -15.3125rem;
+}
+.game-main .corpse1.left-die-4 {
+  background-position: -2.046875rem -15.3125rem;
+}
+.game-main .corpse1.right-die-1 {
+  background-position: 0 -16.58854167rem;
+}
+.game-main .corpse1.right-die-2 {
+  background-position: -0.68229167rem -16.58854167rem;
+}
+.game-main .corpse1.right-die-3 {
+  background-position: -1.36458333rem -16.58854167rem;
+}
+.game-main .corpse1.right-die-4 {
+  background-position: -2.046875rem -16.58854167rem;
+}
+.game-main .corpse2 {
+  background-position: 0 -5.10416667rem;
+}
+.game-main .corpse2.left-1 {
+  background-position: 0 -5.10416667rem;
+}
+.game-main .corpse2.left-2 {
+  background-position: -0.68229167rem -5.10416667rem;
+}
+.game-main .corpse2.left-3 {
+  background-position: -1.36458333rem -5.10416667rem;
+}
+.game-main .corpse2.left-4 {
+  background-position: -2.046875rem -5.10416667rem;
+}
+.game-main .corpse2.left-5 {
+  background-position: -2.72916667rem -5.10416667rem;
+}
+.game-main .corpse2.right-1 {
+  background-position: 0 -6.38020833rem;
+}
+.game-main .corpse2.right-2 {
+  background-position: -0.68229167rem -6.38020833rem;
+}
+.game-main .corpse2.right-3 {
+  background-position: -1.36458333rem -6.38020833rem;
+}
+.game-main .corpse2.right-4 {
+  background-position: -2.046875rem -6.38020833rem;
+}
+.game-main .corpse2.right-5 {
+  background-position: -2.72916667rem -6.38020833rem;
+}
+.game-main .corpse2.left-fight-1 {
+  background-position: 0 -7.65625rem;
+}
+.game-main .corpse2.left-fight-2 {
+  background-position: -0.68229167rem -7.65625rem;
+}
+.game-main .corpse2.left-fight-3 {
+  background-position: -1.36458333rem -7.65625rem;
+}
+.game-main .corpse2.left-fight-4 {
+  background-position: -2.046875rem -7.65625rem;
+}
+.game-main .corpse2.left-fight-5 {
+  background-position: -2.72916667rem -7.65625rem;
+}
+.game-main .corpse2.right-fight-1 {
+  background-position: 0 -8.93229167rem;
+}
+.game-main .corpse2.right-fight-2 {
+  background-position: -0.68229167rem -8.93229167rem;
+}
+.game-main .corpse2.right-fight-3 {
+  background-position: -1.36458333rem -8.93229167rem;
+}
+.game-main .corpse2.right-fight-4 {
+  background-position: -2.046875rem -8.93229167rem;
+}
+.game-main .corpse2.right-fight-5 {
+  background-position: -2.72916667rem -8.93229167rem;
+}
+.game-main .corpse2.left-die-1 {
+  background-position: 0 -15.3125rem;
+}
+.game-main .corpse2.left-die-2 {
+  background-position: -0.68229167rem -15.3125rem;
+}
+.game-main .corpse2.left-die-3 {
+  background-position: -1.36458333rem -15.3125rem;
+}
+.game-main .corpse2.left-die-4 {
+  background-position: -2.046875rem -15.3125rem;
+}
+.game-main .corpse2.right-die-1 {
+  background-position: 0 -16.58854167rem;
+}
+.game-main .corpse2.right-die-2 {
+  background-position: -0.68229167rem -16.58854167rem;
+}
+.game-main .corpse2.right-die-3 {
+  background-position: -1.36458333rem -16.58854167rem;
+}
+.game-main .corpse2.right-die-4 {
+  background-position: -2.046875rem -16.58854167rem;
+}
+.game-main .corpse3 {
+  background-position: 0 -10.20833333rem;
+}
+.game-main .corpse3.left-1 {
+  background-position: 0 -10.20833333rem;
+}
+.game-main .corpse3.left-2 {
+  background-position: -0.68229167rem -10.20833333rem;
+}
+.game-main .corpse3.left-3 {
+  background-position: -1.36458333rem -10.20833333rem;
+}
+.game-main .corpse3.left-4 {
+  background-position: -2.046875rem -10.20833333rem;
+}
+.game-main .corpse3.left-5 {
+  background-position: -2.72916667rem -10.20833333rem;
+}
+.game-main .corpse3.right-1 {
+  background-position: 0 -11.484375rem;
+}
+.game-main .corpse3.right-2 {
+  background-position: -0.68229167rem -11.484375rem;
+}
+.game-main .corpse3.right-3 {
+  background-position: -1.36458333rem -11.484375rem;
+}
+.game-main .corpse3.right-4 {
+  background-position: -2.046875rem -11.484375rem;
+}
+.game-main .corpse3.right-5 {
+  background-position: -2.72916667rem -11.484375rem;
+}
+.game-main .corpse3.left-fight-1 {
+  background-position: 0 -12.76041667rem;
+}
+.game-main .corpse3.left-fight-2 {
+  background-position: -0.68229167rem -12.76041667rem;
+}
+.game-main .corpse3.left-fight-3 {
+  background-position: -1.36458333rem -12.76041667rem;
+}
+.game-main .corpse3.left-fight-4 {
+  background-position: -2.046875rem -12.76041667rem;
+}
+.game-main .corpse3.left-fight-5 {
+  background-position: -2.72916667rem -12.76041667rem;
+}
+.game-main .corpse3.right-fight-1 {
+  background-position: 0 -14.03645833rem;
+}
+.game-main .corpse3.right-fight-2 {
+  background-position: -0.68229167rem -14.03645833rem;
+}
+.game-main .corpse3.right-fight-3 {
+  background-position: -1.36458333rem -14.03645833rem;
+}
+.game-main .corpse3.right-fight-4 {
+  background-position: -2.046875rem -14.03645833rem;
+}
+.game-main .corpse3.right-fight-5 {
+  background-position: -2.72916667rem -14.03645833rem;
+}
+.game-main .corpse3.left-die-1 {
+  background-position: 0 -15.3125rem;
+}
+.game-main .corpse3.left-die-2 {
+  background-position: -0.68229167rem -15.3125rem;
+}
+.game-main .corpse3.left-die-3 {
+  background-position: -1.36458333rem -15.3125rem;
+}
+.game-main .corpse3.left-die-4 {
+  background-position: -2.046875rem -15.3125rem;
+}
+.game-main .corpse3.right-die-1 {
+  background-position: 0 -16.58854167rem;
+}
+.game-main .corpse3.right-die-2 {
+  background-position: -0.68229167rem -16.58854167rem;
+}
+.game-main .corpse3.right-die-3 {
+  background-position: -1.36458333rem -16.58854167rem;
+}
+.game-main .corpse3.right-die-4 {
+  background-position: -2.046875rem -16.58854167rem;
+}
+.game-main .botany {
+  width: 0.35416667rem;
+  height: 0.60416667rem;
+  background-size: 1.0625rem 0.60416667rem;
+  background-position: -0.35416667rem 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.game-main .botany.b-1 {
+  background-position: -0.35416667rem 0;
+}
+.game-main .botany.b-2 {
+  background-position: 0 0;
+}
+.game-main .botany.b-3 {
+  background-position: -0.70833333rem 0;
+}
+.game-main .arm {
+  width: 0.38541667rem;
+  height: 0.40104167rem;
+  background-size: 0.38541667rem 1.60416667rem;
+  background-position: 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.game-main .arm.die {
+  background-position: 0 -0.80208333rem;
+}
+.game-main .fire-arm {
+  width: 0.38541667rem;
+  height: 0.40104167rem;
+  background-size: 0.38541667rem 1.60416667rem;
+  background-position: 0 -0.40104167rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.game-main .fire-arm.die {
+  background-position: 0 -1.203125rem;
+}
+.game-main .monster-block {
+  width: 1.82291667rem;
+  height: 0.49479167rem;
+  position: absolute;
+  bottom: 0.20833333rem;
+  left: 0.49479167rem;
+  z-index: 2;
+}
+.game-main .monster-block .head-block {
+  width: 0.49479167rem;
+  height: 0.49479167rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-size: 2.07291667rem 0.48958333rem;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+.game-main .monster-block .head-block .now-monster {
+  width: 0.40625rem;
+  height: 0.40625rem;
+  position: absolute;
+  top: 0.04166667rem;
+  left: 0.04166667rem;
+  background-size: 2.609375rem 0.40104167rem;
+  background-repeat: no-repeat;
+}
+.game-main .monster-block .head-block .now-monster.h-1 {
+  background-position: 0 0;
+}
+.game-main .monster-block .head-block .now-monster.h-2 {
+  background-position: -0.40625rem 0;
+}
+.game-main .monster-block .head-block .now-monster.h-3 {
+  background-position: -0.8125rem 0;
+}
+.game-main .monster-block .heads-block {
+  width: 1.25rem;
+  height: 0.32291667rem;
+  position: absolute;
+  bottom: 0;
+  right: 0.04166667rem;
+}
+.game-main .monster-block .heads-block .c-head {
+  width: 0.32291667rem;
+  height: 0.32291667rem;
+  float: left;
+  position: relative;
+  border-radius: 50%;
+  background-size: 2.609375rem 0.40104167rem;
+  background-repeat: no-repeat;
+}
+.game-main .monster-block .heads-block .c-head .die-num {
+  width: 0.125rem;
+  height: 0.125rem;
+  position: absolute;
+  top: 0;
+  right: -0.0625rem;
+  background-color: #469a2f;
+  border-radius: 50%;
+  font-size: 0.0625rem;
+  color: #ffffff;
+  line-height: 0.125rem;
+  text-align: center;
+}
+.game-main .monster-block .heads-block .c-head.head-1 {
+  margin-left: 0;
+  background-position: -1.21875rem 0;
+}
+.game-main .monster-block .heads-block .c-head.head-2 {
+  margin-left: 0.09375rem;
+  background-position: -1.54166667rem 0;
+}
+.game-main .monster-block .heads-block .c-head.head-3 {
+  margin-left: 0.09375rem;
+  background-position: -1.86458333rem 0;
+}
+.game-main .bar {
+  width: 1.578125rem;
+  height: 0.13020833rem;
+  position: absolute;
+  top: 0.015625rem;
+  right: 0;
+  z-index: 2;
+  background-size: 2.07291667rem 0.48958333rem;
+  background-position: -0.49479167rem 0;
+  background-repeat: no-repeat;
+}
+.game-main .bar.energy-bar {
+  top: 0.18229167rem;
+}
+.game-main .bar .blood {
+  width: 1.28125rem;
+  height: 0.13020833rem;
+  position: absolute;
+  top: 0;
+  right: 0.0625rem;
+}
+.game-main .bar .blood .blood-bar {
+  width: 100%;
+  height: 0.0625rem;
+  position: absolute;
+  top: 0.03645833rem;
+  left: 0;
+  border-radius: 0.03125rem;
+  transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
+  overflow: hidden;
+}
+.game-main .bar .blood .blood-bar .blood-bar-line {
+  width: 100%;
+  height: 0.0625rem;
+  background-repeat: repeat-x;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+.game-main .bar .blood .blood-bar .energy-bar-line {
+  width: 100%;
+  height: 0.0625rem;
+  border-radius: 0.03125rem;
+  background-size: 2.07291667rem 0.48958333rem;
+  background-position: -0.49479167rem -0.140625rem;
+  background-repeat: no-repeat;
+  transform: translate3d(-100%, 0, 0);
+  -webkit-transform: translate3d(-100%, 0, 0);
+}
+.game-main .bar .blood .line {
+  width: 0.01041667rem;
+  height: 0.13020833rem;
+  position: absolute;
+  top: 0;
+  background-color: #3f3519;
+}
+.game-main .bar .blood .line.l-1 {
+  left: 25%;
+}
+.game-main .bar .blood .line.l-2 {
+  left: 50%;
+}
+.game-main .bar .blood .line.l-3 {
+  left: 75%;
+}
+.game-main .energy-block {
+  width: 1.84375rem;
+  height: 0.49479167rem;
+  position: absolute;
+  bottom: 0.20833333rem;
+  right: 0.42708333rem;
+}
+.game-main .energy-block .head-block {
+  width: 0.49479167rem;
+  height: 0.49479167rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-size: 2.07291667rem 0.48958333rem;
+  background-position: 0 0;
+}
+.game-main .energy-block .head-block .fire-head {
+  width: 0.40625rem;
+  height: 0.40625rem;
+  position: absolute;
+  top: 0.04166667rem;
+  left: 0.04166667rem;
+  background-size: 2.609375rem 0.40104167rem;
+  background-repeat: no-repeat;
+  background-position: -2.1875rem 0;
+}
+.game-main .energy-block .head-block .fire-mask {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.game-main .energy-block .head-block .fire-mask.ok {
+  display: none;
+}

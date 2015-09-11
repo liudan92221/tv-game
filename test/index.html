@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <a href="javascript:;" id="J_begin">开始</a>
+    <a href="javascript:;" id="J_stop">暂停</a>
+    <a href="javascript:;" id="J_end">结束</a>
+    <a href="javascript:;" id="J_reset">重置</a>
+    <p id="J_showTime"></p>
+    <div id="J_cat" class="sky-cat"></div>
+    <script src="../src/game.js"></script>
+    <script>
+        var g = new Game.Loop({
+            frameCallback: function() {
+                console.log('run');
+            },
+
+            stopCallback: function() {
+                console.log('stop');
+            },
+
+            endCallback: function() {
+                console.log('end');
+            },
+
+            isWriteTime: true
+        }).loop();
+
+        document.getElementById('J_begin').onclick = function() {
+            g.begin();
+        };
+
+        document.getElementById('J_stop').onclick = function() {
+            g.stop();
+        };
+
+        document.getElementById('J_end').onclick = function() {
+            g.end();
+        };
+
+        document.getElementById('J_reset').onclick = function() {
+            g.reset();
+        };
+
+        var cat = document.getElementById('J_cat');
+
+        new Game.Gif(cat,
+                [
+                    'hz-0',
+                    'hz-1',
+                    'hz-2',
+                    'hz-3',
+                    'hz-4',
+                    'hz-5'
+                ], 1000);
+
+        var lead = new Lead(cat, {position: {x: 500, y: 100}, speed: 80});
+
+        document.addEventListener('keydown', function(e){
+            var keyCode = e.keyCode;
+
+            if (keyCode === 37) {
+                lead.left();
+            } else if (keyCode === 38) {
+                lead.up();
+            } else if (keyCode === 39) {
+                lead.right();
+            } else if (keyCode === 40) {
+                lead.down();
+            }
+        }, false);
+
+        function showTime() {
+            var time = g.getTime();
+            document.getElementById('J_showTime').innerHTML = parseInt(time.gameTime/1000, 10) + " ----- " + parseInt(time.runTime/1000, 10);
+
+            setTimeout(showTime, 500);
+        }
+        setTimeout(showTime, 500);
+    </script>
+</body>
+</html>

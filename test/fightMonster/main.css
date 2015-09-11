@@ -1,0 +1,111 @@
+@media (width: 1920px) {
+  html {
+    font-size: 192px;
+  }
+}
+@media (width: 1280px) {
+  html {
+    font-size: 128px;
+  }
+}
+body {
+  overflow: hidden;
+}
+.main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #202329;
+  overflow: hidden;
+}
+.main .time {
+  position: absolute;
+  top: 0.10416667rem;
+  right: 0.15625rem;
+  font-size: 0.1875rem;
+  color: #ffffff;
+}
+.main .bar {
+  width: 1.30208333rem;
+  height: 0.10416667rem;
+  border: 0.01041667rem solid #ffffff;
+  position: absolute;
+  top: 0.26041667rem;
+  right: 2.08333333rem;
+}
+.main .bar .line {
+  width: 100%;
+  height: 100%;
+  background: #d42510;
+  transition: width .5s;
+  -webkit-transition: width .5s;
+}
+.stage {
+  width: 100%;
+  height: 4.58333333rem;
+  background: url(../img/bg.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+.stage .track {
+  width: 4.125rem;
+  height: 8.77083333rem;
+  position: absolute;
+  top: 0;
+  left: 2.76041667rem;
+  z-index: 1;
+  background: url(../img/bg-points.png) repeat-y;
+  background-size: 100%;
+  background-position: 0 0;
+}
+.stage .monster {
+  width: 1.20833333rem;
+  height: 1.08333333rem;
+  background: url(../img/monster.png) no-repeat;
+  background-position: -1.20833333rem -1.08333333rem;
+  background-size: 3.625rem 3.25rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+.stage .monster.g-1 {
+  background-position: -1.20833333rem -1.08333333rem;
+}
+.stage .monster.g-2 {
+  background-position: -2.41666667rem -1.08333333rem;
+}
+.stage .monster.g-3 {
+  background-position: 0 -2.16666667rem;
+}
+.stage .monster.g-4 {
+  background-position: -1.20833333rem -2.16666667rem;
+}
+.stage .monster.fight {
+  background-position: -1.20833333rem 0;
+}
+.stage .block-btn {
+  width: 1.11458333rem;
+  height: 0.515625rem;
+  background: url(https://gtms03.alicdn.com/tps/i3/TB1ULlUIFXXXXbPXXXXPh.xHVXX-214-99.png) no-repeat;
+  background-size: 100%;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+}
+.stage .arm-block {
+  width: 0.86979167rem;
+  height: 1.1875rem;
+  background: url(https://gtms02.alicdn.com/tps/i2/TB1WYU1IpXXXXaPXpXXIoXPMXXX-501-456.png) no-repeat;
+  background-position: 0 0;
+  background-size: 2.609375rem 2.375rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}

@@ -1,0 +1,152 @@
+@media (width: 1920px) {
+  html {
+    font-size: 192px;
+  }
+}
+@media (width: 1280px) {
+  html {
+    font-size: 128px;
+  }
+}
+
+body {
+  overflow: hidden;
+}
+
+.main {
+//  width: 100%;
+//  height: 1080/192rem;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  background: #202329;
+
+  overflow: hidden;
+
+  .time {
+    position: absolute;
+    top: 20/192rem;
+    right: 30/192rem;
+
+    font-size: 36/192rem;
+    color: #ffffff;
+  }
+
+  .bar {
+    width: 250/192rem;
+    height: 20/192rem;
+
+    border: 2/192rem solid #ffffff;
+
+    position: absolute;
+    top: 50/192rem;
+    right: 400/192rem;
+
+    .line {
+      width: 100%;
+      height: 100%;
+
+      background: #d42510;
+
+      transition: width .5s;
+      -webkit-transition: width .5s;
+    }
+  }
+}
+
+.stage {
+  width: 100%;
+  height: 880/192rem;
+
+//  background: url(https://gtms02.alicdn.com/tps/i2/TB18AZWIpXXXXcFXpXXiXTZHXXX-990-421.png) no-repeat;
+  background: url(../img/bg.png) no-repeat;
+  background-size: 100% 100%;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  overflow: hidden;
+
+  .track {
+    width: 792/192rem;
+    height: 1684/192rem;
+
+    position: absolute;
+    top: 0;
+    left: 530/192rem;
+    z-index: 1;
+
+//    background: url(https://gtms04.alicdn.com/tps/i4/TB1HkXGIFXXXXasXFXXqmU70VXX-396-421.png) repeat-y;
+    background: url(../img/bg-points.png) repeat-y;
+    background-size: 100%;
+    background-position: 0 0;
+  }
+
+
+  .monster {
+    width: 232/192rem;
+    height: 208/192rem;
+
+//    background: url(https://gtms04.alicdn.com/tps/i4/TB1rysLIpXXXXa5XVXX7iDNSpXX-696-624.png) no-repeat;
+    background: url(../img/monster.png) no-repeat;
+    background-position: -232/192rem -208/192rem;
+    background-size: 696/192rem 624/192rem;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+
+    &.g-1 {
+      background-position: -232/192rem -208/192rem;
+    }
+
+    &.g-2 {
+      background-position: -464/192rem -208/192rem;
+    }
+
+    &.g-3 {
+      background-position: 0 -416/192rem;
+    }
+
+    &.g-4 {
+      background-position: -232/192rem -416/192rem;
+    }
+
+    &.fight {
+      background-position: -232/192rem 0;
+    }
+  }
+
+  .block-btn {
+    width: 214/192rem;
+    height: 99/192rem;
+
+    background: url(https://gtms03.alicdn.com/tps/i3/TB1ULlUIFXXXXbPXXXXPh.xHVXX-214-99.png) no-repeat;
+    background-size: 100%;
+
+    position: absolute;
+    left: 0;
+//    top: 0;
+    z-index: 2;
+  }
+
+  .arm-block {
+    width: 167/192rem;
+    height: 228/192rem;
+    background: url(https://gtms02.alicdn.com/tps/i2/TB1WYU1IpXXXXaPXpXXIoXPMXXX-501-456.png) no-repeat;
+    background-position: 0 0;
+    background-size: 501/192rem 456/192rem;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+  }
+}
+

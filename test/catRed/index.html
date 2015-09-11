@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>618撕红包活动</title>
+
+    <script>
+        window.data = {
+            getTextProv: '$!getTextProv',
+            getTextNext: '$!getTextNext',
+            getLink: '$!getLink',
+            errorText: '$!errorText',
+            errorLink: '$!errorLink',
+            noText: '$!noText',
+            noLink: '$!noLink'
+        };
+    </script>
+</head>
+<body>
+<!--<link rel="stylesheet" type="text/css" href="http://g.tbcdn.cn/de/ali-tvkit/1.0.6/css/base-min.css">-->
+<!--<link rel="stylesheet" type="text/css" href="http://g.assets.daily.taobao.net/de/tv_activity_lucky/1.0.1/page/main.css">-->
+<link rel="stylesheet" type="text/css" href="./main.css">
+<!--<div id="J_loading" class="mask-loading">-->
+    <!--<div class="spinner">-->
+        <!--<div class="bounce1 bounce"></div>-->
+        <!--<div class="bounce2 bounce"></div>-->
+        <!--<div class="bounce3 bounce"></div>-->
+    <!--</div>-->
+<!--</div>-->
+<img src="http://gtms01.alicdn.com/tps/i1/TB1d5hRIXXXXXXeaXXXMmE7UFXX-1920-1080.png" style="display: none">
+<img src="http://gtms03.alicdn.com/tps/i3/TB1q7vvHVXXXXagXFXXIVqBJFXX-326-2544.png" style="display: none">
+<img src="http://gtms04.alicdn.com/tps/i4/TB1Z1LnHVXXXXc5XpXXAr4TTpXX-3840-241.png" style="display: none">
+<img src="http://gtms01.alicdn.com/tps/i1/TB1PnpvHFXXXXXTaXXXa4JNLFXX-363-220.png" style="display: none">
+<img src="http://gtms02.alicdn.com/tps/i2/TB1GMouHVXXXXafXVXXUxHJ5FXX-544-269.png" style="display: none">
+<img src="http://gtms01.alicdn.com/tps/i1/TB1_1VoHFXXXXcsaXXX6eYnIFXX-778-395.png" style="display: none">
+<img src="http://gtms02.alicdn.com/tps/i2/TB1_xM2HpXXXXXgapXXQPSn4VXX-224-115.png" style="display: none">
+<img src="http://gtms02.alicdn.com/tps/i2/TB1HxeYGFXXXXc_aXXXr6Ry0XXX-183-165.png" style="display: block;width: 0;height: 0;line-height: 0;visibility: hidden;">
+<img src="http://gtms02.alicdn.com/tps/i2/TB1GP2rHVXXXXc3XXXXR8XdHVXX-58-49.png" style="display: none">
+<div id="main" class="">
+    <div id="J_cat" class="sky-cat">
+        <div class="star"></div>
+        <div id="J_kuang" class="kuang"></div>
+    </div>
+    <div id="J_track" class="track"></div>
+</div>
+
+<div id="J_explanation" class="mask active">
+    <img class="explanation-block" src="http://gtms02.alicdn.com/tps/i2/TB1rBXHIXXXXXabXVXXrHBjMXXX-998-588.png">
+</div>
+
+<div id="J_go" class="mask-1 ">
+    <div class="go"></div>
+</div>
+<div id="J_win" class="mask-1 ">
+    <div class="block">
+        <div class="btn">
+            <p id="J_win_text" class="t-price">恭喜您撕到<span id="J_price">18</span>元红包～</p>
+            <p id="J_win_btn" class="t-text">点我去逛逛</p>
+        </div>
+        <div class="house"></div>
+    </div>
+</div>
+<div id="J_log" class="mask ">
+    <div class="tip">
+        <p id="J_log_text" class="text"></p>
+    </div>
+    <div id="J_tip_btn" class="close-btn tip-btn">
+        先去逛逛
+    </div>
+</div>
+<div id="J_error" class="mask ">
+    <div class="tip">
+        <p id="J_error_text" class="text"></p>
+    </div>
+    <div id="J_error_btn" class="close-btn tip-btn">
+        先去逛逛
+    </div>
+</div>
+<div id="J_noWIFI" class="mask ">
+    <div class="tip">
+        <p class="text">网络不可用或超时</p>
+    </div>
+    <div class="close-btn tip-btn">
+        我知道了
+    </div>
+</div>
+<div id="J_help" class="mask ">
+    <div id="J_help_content" class="help-text">
+        <div id="J_h_text_block" class="content">
+            <h1 class="text-head">618电视淘宝撕红包活动规则</h1>
+            <p class="text-p">1、活动时间：2015年6月5日0:00至2015年6月18日24:00，撕完即止。</p>
+            <p class="text-p">2、使用时间：红包仅限在2015年6月18日0:00至24:00使用，过期作废。</p>
+            <p class="text-p">3、用户规则：经过支付宝实名认证的淘宝用户1天有10次撕红包机会。整个活动期间1个淘宝账号可撕中1次红包，一台阿里tv终端活动期间可供2个淘宝账号撕中红包。</p>
+            <p class="text-p">4、红包面额：18元、68元、618元支付宝红包，撕红包时不同面额随机发放。可在hongbao.alipay.com或支付宝钱包中的财富-账户余额-红包中查看详情。</p>
+            <p class="text-p">5、红包使用范围：仅限在阿里TV终端（指天猫魔盒以及使用YunOS操作系统的盒子和电视机）购物（包含电视淘宝购物专题、盒子端聚划算和盒子端天猫超市），PC和手机端的购物下单不能使用。</p>
+            <p class="text-p">6、红包使用方法：阿里TV端下单后，使用支付宝钱包支付时，请按push通知提示进行淘TV授权，即可使用红包。或者阿里TV端下单后扫码进行支付，也可使用。</p>
+            <p class="text-p">7、红包一经领取后，不可提现或转入余额宝，不得转赠，不设找零。红包可以拆分使用，也可以与其他支付宝红包叠加使用。</p>
+            <p class="text-p">8、若使用红包的整笔订单被买家在确认收货交易成功前发起全额退款，且退款发生时该红包还在使用有效期内，则该红包可退，否则该红包不可退。无论红包是否可退，买家可发起申请的现金退款额度仅以其实际支付的价款为限。</p>
+            <p class="text-p">9、欲申领或使用红包，您须理解并同意：红包提供方可根据活动的实际情况，在法律允许的范围内，对本活动规则进行修改包括提前终止本活动，相关修改或提前终止将通过阿里TV内置相关页面或YunOS官方网站、YunOS社区等进行公示。</p>
+            <p class="text-p">10、任何申领或使用本活动红包的行为，代表您已全面理解，全部同意上述所有活动规则。</p>
+        </div>
+    </div>
+    <div id="J_close_help" class="close-btn">
+        知道了
+    </div>
+</div>
+<!--这个是活动的md5-->
+<input id="J_md5" type="hidden" value="9a064289599f982ff4cb4b735e3c2568">
+<!--这个是活动跳转的链接-->
+<input id="J_activity_url" type="hidden" value="tvtaobao://home?app=zhuanti&module=goodsshopping&url=http://act.yun.taobao.com/go/rgn/yunos/zhoumotaobao0515.php&typetype=ITEMSEARCH&from=lm_gwp_zhoumotaobao0515_0515">
+<!--<script src="http://g.assets.daily.taobao.net/de/tv_activity_lucky/1.0.1/tv-lucky.js"></script>-->
+
+<script src="../../build/game.js"></script>
+<script>
+    (function() {
+        var catNode = document.getElementById('J_cat');
+        var mainNode = document.getElementById('main');
+        var trackNode = document.getElementById('J_track');
+
+        var game = new Game(mainNode);
+
+        new Game.Gif(catNode,
+                [
+                    'hz-0',
+                    'hz-1',
+                    'hz-2',
+                    'hz-3',
+                    'hz-4',
+                    'hz-5'
+                ], 1000);
+
+        var cat = game.makeLead(catNode, {
+            width: 163,
+            height: 212,
+            position: {x: 200,y: 528},
+            suffix: 'rem',
+            speed: 206,
+            pxToRem: 192
+        });
+
+        var speed = 10;
+
+        var redModule = game.makeMonsterModule('red', {
+            width: 183,
+            height: 165,
+            position: {x: 2200,y: 0},
+            suffix: 'rem',
+            speed: speed,
+            pxToRem: 192,
+            className: 'red-block',
+            style: {},
+            template: '',
+            border: {top: 0, bottom: 1080, left: 0, right: 1920},
+            detectBorder: {top: false, bottom: false, left: true, right: false},
+            borderCallback: function(e) {
+                redModule.remove(e.target.id);
+            }
+        });
+
+        var coll = new Game.Collision([
+            {
+                name: 'catToRed',
+                obj1: cat,
+                obj2: redModule.getSingles(),
+                state: true,
+                scope: 60,
+                scopeX: 60,
+                scopeY: 60,
+
+                callback: function(obj1, obj2) {
+
+                    redModule.remove(obj2.id);
+                }
+            }
+        ]);
+
+        var trackPosition = 0;
+
+        function runTrack() {
+            trackPosition += speed;
+            trackPosition = trackPosition >= 1920 ? 0 : trackPosition;
+
+            trackNode.style.webkitTransform = 'translate3d('+ (-trackPosition) +'px, 0, 0)';
+        }
+
+        var rLocationMap = [
+            362,
+            568,
+            774
+        ];
+        function makeRed() {
+            setTimeout(function(){
+                if (redModule.getSinglesNum() < 5) {
+                    var random = Math.floor(Math.random() * 3);
+                    redModule.make({
+                        x: 2200,
+                        y: rLocationMap[random]
+                    });
+                }
+
+                makeRed();
+            }, 3000);
+        }
+
+        function runRed() {
+            var reds = redModule.getSingles();
+
+            reds.forEach(function(item) {
+                item.left();
+            });
+        }
+
+        var gameLoop = new Game.Loop({
+//            frameCallback: 每帧运行方法,
+//            endCallback: 游戏结束回调,
+//            stopCallback: 暂停回调,
+            isWriteTime: false
+        })
+                .frame(function() {
+                    coll.detect();
+
+                    runTrack();
+                    runRed();
+
+                }).registerEnd(function() {
+                    console.log('end');
+                }).registerStop(function() {
+                    console.log('stop');
+                });
+
+        var state = 1;
+        document.addEventListener('keydown', function(e){
+            var keyCode = e.keyCode;
+
+            var gameState = gameLoop.getState();
+
+            if (keyCode === 13) {
+                if (gameState === -1) {
+                    document.getElementById('J_explanation').classList.remove('active');
+                    document.getElementById('J_go').classList.add('active');
+
+                    setTimeout(function() {
+                        document.getElementById('J_go').classList.remove('active');
+                        gameLoop.begin().loop();
+                        catNode.classList.add('show');
+
+                        setTimeout(function() {
+                            makeRed();
+                        }, 2000);
+                    }, 2000);
+                }
+            } else if (keyCode === 38) {
+                if (gameState === 1 && state !== 0) {
+                    cat.up();
+                    state--;
+                }
+
+            } else if (keyCode === 40) {
+                if (gameState === 1 && state !== 2) {
+                    cat.down();
+                    state++;
+                }
+            }
+
+            e.stopPropagation();
+            return false;
+        }, false);
+    })();
+</script>
+<script charset="UTF-8">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255259071' class='cnzz-btn'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/q_stat.php%3Fid%3D1255259071%26l%3D3' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

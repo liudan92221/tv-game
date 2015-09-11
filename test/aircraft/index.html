@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>打飞机</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="main">
+        <div id="J_stage" class="stage">
+            <!--<div id="J_bg" class="bg"></div>-->
+            <!--<div id="J_lead" class="me"></div>-->
+        </div>
+    </div>
+    <script src="../../build/game.js"></script>
+    <script>
+        var img = {
+            bg: 'https://gtms04.alicdn.com/tps/i4/TB1KLT1IFXXXXcgaXXXCDojPFXX-480-853.jpg',
+            me: 'https://gtms01.alicdn.com/tps/i1/TB1TY7jIFXXXXcKXXXXox9fJXXX-98-122.png',
+            me_de1: 'https://gtms02.alicdn.com/tps/i2/TB1WAJ4IFXXXXasaXXXox9fJXXX-98-122.png',
+            me_de2: 'https://gtms01.alicdn.com/tps/i1/TB1JHW9IFXXXXbDaXXXox9fJXXX-98-122.png',
+            me_de3: 'https://gtms04.alicdn.com/tps/i4/TB1Z6myIFXXXXaaaFXXox9fJXXX-98-122.png',
+            me_de4: 'https://gtms04.alicdn.com/tps/i4/TB1CBU0IFXXXXbeXFXXox9fJXXX-98-122.png',
+            arm: 'https://gtms01.alicdn.com/tps/i1/TB16QcgIFXXXXaBXpXXX8.XFpXX-7-18.png',
+            plain1: 'https://gtms03.alicdn.com/tps/i3/TB1.mohIFXXXXXJXpXX7HyzHVXX-59-36.png',
+            plain1_de1: 'https://gtms02.alicdn.com/tps/i2/TB1P7w7IFXXXXa3XXXX7HyzHVXX-59-36.png',
+            plain1_de2: 'https://gtms03.alicdn.com/tps/i3/TB1NC1gIFXXXXaEapXX7HyzHVXX-59-36.png',
+            plain1_de3: 'https://gtms01.alicdn.com/tps/i1/TB1Z8RQIFXXXXbJaXXX7HyzHVXX-59-36.png',
+            plain2: 'https://gtms04.alicdn.com/tps/i4/TB1QoneIXXXXXctaXXXEABAIpXX-70-92.png'
+        };
+
+        var config = {
+            stage: {
+                width: 480,
+                height: 853
+            },
+            me: {
+                width: 98,
+                height: 122,
+                speed: 30
+            },
+            plain1: {
+                width: 59,
+                height: 36,
+                speed: 5
+            },
+            plain2: {
+                width: 70,
+                height: 92,
+                speed: 5
+            },
+            arms: {
+                width: 7,
+                height: 18,
+                speed: 50
+            },
+
+            me_de_time: 800,
+            plain1_de_time: 500
+        };
+
+        var game = null;
+
+        function createGame() {
+            game = new Game({
+                config: {
+                    suffix: 'rem',
+                    pxToRem: 192
+                },
+
+                //加载资源
+//            resource: {
+//
+//            },
+                //生成舞台
+                stage: {
+                    node: document.getElementById('J_stage')
+                },
+
+                //生成lead
+                lead: {
+                    parameter: {
+                        width: config.me.width,
+                        height: config.me.height,
+                        position: {x: 240 - 49,y: 853 - 122},
+//                    suffix: 'rem',
+                        speed: config.me.speed,
+                        className: 'me',
+                        style: {
+//                        'background': 'url('+img.me+') no-repeat'
+                        }
+//                    pxToRem: 192
+                    },
+                    gif: {
+                        change: [
+                            {'background': 'url('+img.me+') no-repeat'},
+                            {'background': 'url('+img.me_de1+') no-repeat'},
+                            {'background': 'url('+img.me_de2+') no-repeat'},
+                            {'background': 'url('+img.me_de3+') no-repeat'},
+                            {'background': 'url('+img.me_de4+') no-repeat'}
+                        ],
+
+                        time: config.me_de_time,
+                        state: false,
+                        loop: 1
+                    },
+//                    gif: [
+//                        {
+//                            name: 'die',
+//                            change: [
+//                                {'background': 'url(' + img.me + ') no-repeat'},
+//                                {'background': 'url(' + img.me_de1 + ') no-repeat'},
+//                                {'background': 'url(' + img.me_de2 + ') no-repeat'},
+//                                {'background': 'url(' + img.me_de3 + ') no-repeat'},
+//                                {'background': 'url(' + img.me_de4 + ') no-repeat'}
+//                            ],
+//
+//                            time: config.me_de_time,
+//                            state: false,
+//                            loop: 1
+//                        },
+//                        {
+//                            name: 'temp',
+//                            change: [
+//                                {'background': 'url(' + img.me + ') no-repeat'},
+//                                {'background': 'url(' + img.plain1_de1 + ') no-repeat'},
+//                                {'background': 'url(' + img.plain1_de2 + ') no-repeat'},
+//                                {'background': 'url(' + img.plain1_de3 + ') no-repeat'}
+//                            ],
+//
+//                            time: config.me_de_time,
+//                            state: false,
+//                            loop: 1
+//                        }
+//                    ],
+                    extend: {
+                    }
+                },
+
+                //生成道路
+                track: {
+//                node: document.getElementById('J_bg'),
+                    parameter: {
+                        type: 'bottom',
+//                    suffix: 'rem',
+                        speed: 4,
+                        start: -853,
+                        end: 0,
+                        className: 'bg',
+                        template: '',
+                        style: {
+                            'background': 'url('+img.bg+') repeat-y'
+                        }
+//                    pxToRem: 192
+                    }
+                },
+
+                //生成怪兽模板
+                monster: [
+                    {
+                        name: 'plain1',
+                        init: function() {
+
+                        },
+                        parameter: {
+                            width: config.plain1.width,
+                            height: config.plain1.height,
+                            position: {x: 0,y: -config.plain1.height},
+//                        suffix: 'rem',
+                            speed: config.plain1.speed,
+//                        pxToRem: 192,
+                            className: 'plain1',
+                            template: '',
+                            style: {
+//                            'background': 'url('+img.plain1+') no-repeat'
+                            },
+                            border: {top: 0, bottom: 853, left: 0, right: 1920},
+                            detectBorder: {top: false, bottom: true, left: false, right: false},
+                            borderCallback: function(e) {
+                                e.target.remove();
+                            }
+                        },
+                        gif: {
+                            change: [
+                                {'background': 'url('+img.plain1+') no-repeat'},
+                                {'background': 'url('+img.plain1_de1+') no-repeat'},
+                                {'background': 'url('+img.plain1_de2+') no-repeat'},
+                                {'background': 'url('+img.plain1_de3+') no-repeat'}
+                            ],
+
+                            time: config.plain1_de_time,
+                            state: false,
+                            loop: 1
+                        },
+                        extend: {}
+                    },
+                    {
+                        name: 'plain2',
+                        init: function() {
+
+                        },
+                        parameter: {
+                            width: config.plain2.width,
+                            height: config.plain2.height,
+                            position: {x: 0,y: -config.plain2.height},
+//                        suffix: 'rem',
+                            speed: config.plain2.speed,
+//                        pxToRem: 192,
+                            className: 'plain2',
+                            template: '',
+                            style: {
+                                'background': 'url('+img.plain2+') no-repeat'
+                            },
+                            border: {top: 0, bottom: 853, left: 0, right: 1920},
+                            detectBorder: {top: false, bottom: true, left: false, right: false},
+                            borderCallback: function(e) {
+                                e.target.remove();
+                            }
+                        },
+                        extend: {
+                            blood: 4,
+                            bloodDown: function() {
+                                this.blood--;
+
+                                if (this.blood <= 0) {
+                                    this.remove();
+                                }
+                            }
+                        }
+                    },
+                    {
+                        name: 'arms',
+                        parameter: {
+                            width: config.arms.width,
+                            height: config.arms.height,
+                            position: {x: 0,y: 0},
+//                        suffix: 'rem',
+                            speed: config.arms.speed,
+//                        pxToRem: 192,
+                            className: 'arms',
+                            template: '',
+                            style: {
+                                'background': 'url('+img.arm+') no-repeat'
+                            },
+                            border: {top: 0, bottom: 1080, left: 0, right: 1920},
+                            detectBorder: {top: true, bottom: false, left: false, right: false},
+                            borderCallback: function(e) {
+                                e.target.remove();
+                            }
+                        },
+                        extend: {}
+                    }
+                ],
+
+                //生成碰撞检测
+                collision: [
+                    {
+                        name: 'fight-plain1',
+                        obj1: function() {
+                            return this.monster['arms'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['plain1'].getSingles();
+                        },
+                        state: true,
+                        scope: 30,
+
+                        callback: function(obj1, obj2) {
+                            obj1.remove();
+                            obj2.remove(function() {
+                                this.gif.run();
+                            }, config.plain1_de_time);
+                        }
+                    },
+                    {
+                        name: 'fight-plain2',
+                        obj1: function() {
+                            return this.monster['arms'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['plain2'].getSingles();
+                        },
+                        state: true,
+                        scope: 30,
+
+                        callback: function(obj1, obj2) {
+                            obj1.remove();
+                            obj2.bloodDown();
+                        }
+                    },
+                    {
+                        name: 'plain1-lead',
+                        obj1: function() {
+                            return this.lead;
+                        },
+                        obj2: function() {
+                            return this.monster['plain1'].getSingles();
+                        },
+                        state: true,
+                        scope: 61,
+
+                        callback: function(obj1, obj2) {
+                            obj1.gif.run();
+                            this.loop.end();
+                        }
+                    }
+                ],
+
+                //生成loop
+                loop: {
+                    extend: {
+                        timeArm: 0,
+                        plain1: 0,
+                        plain2: 0
+                    },
+                    init: function() {
+
+                    },
+                    frameCallback: function(loop) {
+                        this.collision.detect();
+                        this.track.run();
+
+                        this.monster['arms'].getSingles().forEach(function(item) {
+                            item.up();
+                        });
+
+                        this.monster['plain1'].getSingles().forEach(function(item) {
+                            item.down();
+                        });
+
+                        this.monster['plain2'].getSingles().forEach(function(item) {
+                            item.down();
+                        });
+
+                        if (loop.timeArm >= 12) {
+                            var centerPosition = this.lead.getCenterPosition();
+                            this.monster['arms'].make({x: centerPosition.x - 3, y: centerPosition.y - 61});
+
+                            loop.timeArm = 0;
+                        } else {
+                            loop.timeArm++;
+                        }
+
+                        if (loop.plain1 >= 60 * 2) {
+                            this.monster['plain1'].make({x: Math.random() * 400, y: -config.plain1.height});
+                            loop.plain1 = 0;
+                        } else {
+                            loop.plain1++;
+                        }
+
+                        if (loop.plain2 >= 60 * 5) {
+                            this.monster['plain2'].make({x: Math.random() * 400, y: -config.plain2.height});
+                            loop.plain2 = 0;
+                        } else {
+                            loop.plain2++;
+                        }
+
+
+                    },
+                    endCallback: function() {
+
+                    },
+                    stopCallback: function() {
+
+                    },
+                    isWriteTime: false,
+                    isFps: true
+                }
+            });
+
+            game.setResource({
+                source: [
+                    {
+                        type: 'image',
+                        name: 'bg',
+                        parameter: {
+                            src: img.bg,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'me',
+                        parameter: {
+                            src: img.me,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'me-de1',
+                        parameter: {
+                            src: img.me_de1,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'me-de2',
+                        parameter: {
+                            src: img.me_de2,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'me-de3',
+                        parameter: {
+                            src: img.me_de3,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'me-de4',
+                        parameter: {
+                            src: img.me_de4,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'arm',
+                        parameter: {
+                            src: img.arm,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'plain1',
+                        parameter: {
+                            src: img.plain1,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'plain1-de1',
+                        parameter: {
+                            src: img.plain1_de1,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'plain1-de2',
+                        parameter: {
+                            src: img.plain1_de2,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'plain1-de3',
+                        parameter: {
+                            src: img.plain1_de3,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    },
+                    {
+                        type: 'image',
+                        name: 'plain2',
+                        parameter: {
+                            src: img.plain2,
+                            callback: function(e) {
+                                console.log('bg---'+e);
+                            }
+                        }
+                    }
+                ],
+
+                success: function(arr) {
+                    this.loop.begin().loop();
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+        }
+        createGame();
+
+        document.addEventListener('keydown', function(e) {
+            var keyCode = e.keyCode;
+
+            if (keyCode === 13) {
+//                game.lead.gif['die'].stop();
+//                game.lead.gif['temp'].run();
+                game.delete();
+            }
+
+            if (game.loop.getState() === 0) {
+                return;
+            }
+
+            if (keyCode === 37) {
+                game.lead.left();
+            } else if (keyCode === 39) {
+                game.lead.right();
+            } else if (keyCode === 38) {
+                game.lead.up();
+            } else if (keyCode === 40) {
+                game.lead.down();
+            }
+        }, false);
+    </script>
+</body>
+</html>

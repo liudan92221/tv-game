@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div id="main" class="main">
+    <p id="J_time" class="time">30</p>
+    <div class="bar"><div id="J_line" class="line"></div></div>
+    <div id="J_stage" class="stage">
+        <div id="J_track" class="track"></div>
+    </div>
+</div>
+<script src="../../build/game.js"></script>
+<script>
+    var game = new Game({
+        //生成舞台
+        stage: {
+            node: document.getElementById('J_stage')
+        },
+
+        //生成道路
+        track: {
+            node: document.getElementById('J_track'),
+            parameter: {
+                type: 'top',
+                suffix: 'rem',
+                speed: 10,
+                start: 0,
+                end: 842,
+                pxToRem: 192
+            }
+        },
+
+        //生成怪兽模板
+        monster: [
+
+            {
+                name: 'monster',
+                init: function() {
+                    var _this = this;
+
+                    var state = true;
+                    function make() {
+                        if (!state) {
+                            return;
+                        }
+
+                        _this.make({x: parseInt(1560 * Math.random()),y: parseInt(615 * Math.random())});
+                        setTimeout(make, 800);
+                    }
+                    setTimeout(make, 800);
+
+                    document.addEventListener('keydown', function(e) {
+                        if (e.keyCode === 13) {
+                            state = false;
+                            console.log('end');
+                        }
+                    }, false);
+
+                    this.on('click', function(e) {
+                        this.remove(e.target.id);
+                    });
+                },
+                gif: {
+                    change: [
+                        'g-1',
+                        'g-2',
+                        'g-3',
+                        'g-4',
+                        'g-3',
+                        'g-2'
+                    ],
+
+                    time: 1000
+                },
+                parameter: {
+                    width: 232,
+                    height: 208,
+                    position: {x: 780,y: 615},
+                    suffix: 'rem',
+                    speed: 5,
+                    pxToRem: 192,
+                    className: 'monster',
+                    template: '',
+                    border: {top: 0, bottom: 1080, left: 0, right: 1920},
+                    detectBorder: {top: true, bottom: false, left: false, right: false},
+                    borderCallback: function(e) {
+                        this.remove(e.target.id);
+                    }
+                },
+                extend: {
+
+                }
+            }
+        ],
+
+        //生成loop
+        loop: {
+            init: function() {
+                this.loop.begin().loop()
+            },
+            frameCallback: function() {
+                this.track.run();
+
+                if (this.monster['monster'].getSinglesNum() >= 50) {
+                    console.log('end');
+                    this.loop.end();
+                }
+//                this.monster['monster'].getSingles().forEach(function(item) {
+//                    item.up();
+//                });
+            },
+            endCallback: function() {
+
+            },
+            stopCallback: function() {
+
+            },
+            isWriteTime: true
+        }
+    });
+
+</script>
+</body>
+</html>

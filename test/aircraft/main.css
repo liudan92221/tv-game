@@ -1,0 +1,72 @@
+@media (width: 1920px) {
+  html {
+    font-size: 192px;
+  }
+}
+@media (width: 1280px) {
+  html {
+    font-size: 128px;
+  }
+}
+body {
+  overflow: hidden;
+}
+.main {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.stage {
+  width: 2.5rem;
+  height: 4.44270833rem;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.bg {
+  width: 2.5rem;
+  height: 8.88541667rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: 2.5rem 4.44270833rem;
+}
+.me {
+  width: 0.51041667rem;
+  height: 0.63541667rem;
+  background-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+}
+.arms {
+  width: 0.03645833rem;
+  height: 0.09375rem;
+  background-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.plain1 {
+  width: 0.30729167rem;
+  height: 0.1875rem;
+  background-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.plain2 {
+  width: 0.36458333rem;
+  height: 0.47916667rem;
+  background-size: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

@@ -1,0 +1,441 @@
+html {
+    font-size: 192px;
+}
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#main {
+    width: 10rem;
+    height: 10rem;
+    position: relative;
+    background: url(http://gtms01.alicdn.com/tps/i1/TB1d5hRIXXXXXXeaXXXMmE7UFXX-1920-1080.png) no-repeat;
+    background-size: 100%;
+    overflow: hidden;
+}
+.mask-loading {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 4;
+    background-color: #d42510;
+}
+.mask-loading .spinner {
+    width: 0.78125rem;
+    height: 0.15625rem;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.390625rem;
+    margin-top: -0.078125rem;
+}
+.mask-loading .bounce {
+    width: 0.15625rem;
+    height: 0.15625rem;
+    background-color: #ffffff;
+    position: absolute;
+    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+    animation: bouncedelay 1.4s infinite ease-in-out;
+    /* Prevent first frame from flickering when animation starts */
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+.mask-loading .bounce:first-child {
+    margin-left: 0;
+}
+.mask-loading .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+    left: 0;
+}
+.mask-loading .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+    left: 0.3125rem;
+}
+.mask-loading .bounce3 {
+    left: 0.625rem;
+}
+@-webkit-keyframes bouncedelay {
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0);
+    }
+    40% {
+        -webkit-transform: scale(1);
+    }
+}
+@keyframes bouncedelay {
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+        -webkit-transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
+}
+.mask-loading.hide {
+    display: none;
+}
+.mask {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.mask.active {
+    display: block;
+}
+@media (width: 1920px) {
+    html {
+        font-size: 192px;
+    }
+}
+@media (width: 1280px) {
+    html {
+        font-size: 128px;
+    }
+}
+@keyframes star {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@-webkit-keyframes star {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes kuang {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@-webkit-keyframes kuang {
+    0% {
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.sky-cat {
+    display: none;
+    width: 0.84895833rem;
+    height: 1.10416667rem;
+    background: url(http://gtms03.alicdn.com/tps/i3/TB1q7vvHVXXXXagXFXXIVqBJFXX-326-2544.png) no-repeat;
+    background-size: 100%;
+    background-position: 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+.sky-cat .star {
+    width: 0.30208333rem;
+    height: 0.25520833rem;
+    position: absolute;
+    top: -0.25520833rem;
+    right: -0.30208333rem;
+    background: url(http://gtms02.alicdn.com/tps/i2/TB1GP2rHVXXXXc3XXXXR8XdHVXX-58-49.png) no-repeat;
+    background-size: 100%;
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+.sky-cat .kuang {
+    width: 1.16666667rem;
+    height: 0.59895833rem;
+    position: absolute;
+    top: -0.44270833rem;
+    right: -0.95833333rem;
+    background: url(http://gtms02.alicdn.com/tps/i2/TB1_xM2HpXXXXXgapXXQPSn4VXX-224-115.png) no-repeat;
+    background-size: 100%;
+    text-align: center;
+    font-size: 0.15625rem;
+    color: #000101;
+    line-height: 0.52083333rem;
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+.sky-cat.show {
+    display: block;
+}
+.sky-cat.active .star {
+    animation: star .2s linear;
+    -webkit-animation: star .2s linear;
+}
+.sky-cat.active .kuang {
+    animation: kuang 1.2s linear .2s;
+    -webkit-animation: kuang 1.2s linear .2s;
+}
+.sky-cat.hz-1 {
+    background-position: 0 0;
+}
+.sky-cat.hz-1 {
+    background-position: 0 -1.10416667rem;
+}
+.sky-cat.hz-2 {
+    background-position: 0 -2.20833333rem;
+}
+.sky-cat.hz-3 {
+    background-position: 0 -3.3125rem;
+}
+.sky-cat.hz-4 {
+    background-position: 0 -4.41666667rem;
+}
+.sky-cat.hz-5 {
+    background-position: 0 -5.52083333rem;
+}
+.red-block {
+    width: 0.953125rem;
+    height: 0.859375rem;
+    background: url(http://gtms02.alicdn.com/tps/i2/TB1HxeYGFXXXXc_aXXXr6Ry0XXX-183-165.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity .5s linear;
+    -webkit-transition: opacity .5s linear;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+.red-block.dead {
+    opacity: 0;
+}
+.mask .explanation-block {
+    width: 5.19791667rem;
+    height: 3.0625rem;
+    position: absolute;
+    top: 1.97916667rem;
+    left: 2.15625rem;
+}
+.mask .help-text {
+    box-sizing: border-box;
+    width: 6.53645833rem;
+    height: 3.984375rem;
+    position: absolute;
+    top: 0.53125rem;
+    left: 50%;
+    margin-left: -3.265625rem;
+    padding: 0.234375rem 0.36458333rem;
+    background-color: #5a3112;
+    border: 0.02604167rem solid #734013;
+    box-shadow: 0 0 0.26041667rem #230d00;
+    font-size: 0.15625rem;
+    color: #ffffff;
+    line-height: 0.26041667rem;
+    overflow: hidden;
+}
+.mask .help-text .content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0.234375rem 0.36458333rem;
+}
+.mask .text-head {
+    text-align: center;
+    font-size: 0.1875rem;
+    line-height: 0.30208333rem;
+}
+.mask .text-p {
+    margin-bottom: 0.03125rem;
+}
+.mask .close-btn {
+    width: 2.34895833rem;
+    height: 0.47395833rem;
+    position: absolute;
+    bottom: 0.46354167rem;
+    left: 50%;
+    margin-left: -1.17708333rem;
+    background-color: #7c4515;
+    text-align: center;
+    font-size: 0.1875rem;
+    color: #ffffff;
+    line-height: 0.47395833rem;
+    border: solid 0.04166667rem #ffffff;
+}
+.mask .tip {
+    margin-top: 2.43229167rem;
+    padding: 0.35416667rem 0.42708333rem;
+    text-align: center;
+    font-size: 0.1875rem;
+    color: #ffffff;
+    overflow: hidden;
+}
+.mask .tip .text {
+    vertical-align: middle;
+    line-height: 0.30208333rem;
+}
+.mask .tip-btn {
+    bottom: 1.61458333rem;
+    box-shadow: 0 0 0.26041667rem #230d00;
+}
+@keyframes go {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@-webkit-keyframes go {
+    0% {
+        -webkit-transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.5);
+    }
+    100% {
+        -webkit-transform: scale(1);
+    }
+}
+.mask-1 {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0);
+}
+.mask-1 .go {
+    width: 1.890625rem;
+    height: 1.14583333rem;
+    position: absolute;
+    top: 2.55208333rem;
+    left: 50%;
+    margin-left: -0.94270833rem;
+    background: url(http://gtms01.alicdn.com/tps/i1/TB1PnpvHFXXXXXTaXXXa4JNLFXX-363-220.png) no-repeat;
+    background-size: 100%;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    animation: go .5s linear infinite;
+    -webkit-animation: go .5s linear infinite;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+.mask-1 .block {
+    width: 4.26041667rem;
+    height: 3.04166667rem;
+    position: absolute;
+    top: 2.08333333rem;
+    left: 50%;
+    margin-left: -2.13020833rem;
+}
+.mask-1 .btn {
+    width: 3.13541667rem;
+    height: 1.51041667rem;
+    margin: 0rem auto;
+    background: url(http://gtms03.alicdn.com/tps/i3/TB15dBSIXXXXXcZXVXX1R5zKXXX-602-290.png) no-repeat;
+    background-size: 100%;
+    color: #fefefe;
+    overflow: hidden;
+}
+.mask-1 .t-price {
+    margin-top: 0.49479167rem;
+    text-align: center;
+    font-size: 0.15625rem;
+    line-height: 0.18229167rem;
+}
+.mask-1 .t-price span {
+    font-size: 0.25rem;
+}
+.mask-1 .t-text {
+    text-align: center;
+    font-size: 0.234375rem;
+    line-height: 0.35416667rem;
+}
+.mask-1 .house {
+    width: 4.05208333rem;
+    height: 2.05729167rem;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: url(http://gtms04.alicdn.com/tps/i4/TB1EF4SIXXXXXcxXVXX6eYnIFXX-778-395.png) no-repeat;
+    background-size: 100%;
+}
+.mask-1.active {
+    display: block;
+}
+.track {
+    width: 20rem;
+    height: 1.25520833rem;
+    position: absolute;
+    top: 2.921875rem;
+    left: 0;
+    background: url(http://gtms04.alicdn.com/tps/i4/TB1Z1LnHVXXXXc5XpXXAr4TTpXX-3840-241.png) no-repeat;
+    background-size: 100%;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+.cnzz-btn {
+    display: none;
+}

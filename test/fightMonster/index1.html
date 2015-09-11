@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>打怪兽</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div id="main" class="main">
+    <p id="J_time" class="time">30</p>
+    <div class="bar"><div id="J_line" class="line"></div></div>
+    <div id="J_stage" class="stage">
+        <div id="J_monster" class="monster"></div>
+        <div id="J_track" class="track"></div>
+    </div>
+</div>
+<script src="../../build/game.js"></script>
+<script>
+        var game = new Game({
+            //生成舞台
+            stage: {
+                node: document.getElementById('J_stage')
+            }
+        }).setLead({   //生成lead
+                    node: document.getElementById('J_monster'),
+                    gif: {
+                        change: [
+                            'g-1',
+                            'g-2',
+                            'g-3',
+                            'g-4',
+                            'g-3',
+                            'g-2'
+                        ],
+
+                        time: 1000
+                    },
+                    parameter: {
+                        width: 232,
+                        height: 208,
+                        position: {x: 780,y: 0},
+                        suffix: 'rem',
+                        speed: 10,
+                        pxToRem: 192
+                    },
+                    extend: {
+                        blood: 100,
+                        fight: function() {
+                            this.blood -= 20;
+                        },
+                        getBlood: function() {
+                            return this.blood;
+                        }
+                    }
+                });
+
+        var state = 'left';
+        function runMonster() {
+            var x = game.lead.getPosition().x;
+
+            if (x <= 400) {
+                state = 'right';
+            } else if (x >= 1160) {
+                state = 'left';
+            }
+
+            game.lead[state]();
+        }
+
+        function Fight() {
+            this.state = false;
+
+            this.do = function () {
+                game.monster['arms'].make();
+            };
+
+            this.checkState = function() {
+                this.state = !this.state;
+            }
+        }
+
+        var oFight = new Fight();
+
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 13) {
+                if (!oFight.state) {
+                    game.monster['arms'].make();
+                    oFight.checkState();
+                }
+            }
+        }, false);
+
+        //生成怪兽模板
+        game.setMonsterModule([
+            {
+                name: 'block',
+                init: function() {
+                    this.make();
+                },
+                parameter: {
+                    width: 85,
+                    height: 85,
+                    style: {
+                        bottom: '0',
+                        left: 800/192+'rem'
+                    },
+                    position: {x: 0,y: 0},
+                    suffix: 'rem',
+                    pxToRem: 192,
+                    className: 'block-btn',
+                    template: ''
+                },
+                extend: {}
+            },
+            {
+                name: 'arms',
+                parameter: {
+                    width: 167,
+                    height: 228,
+                    position: {x: 800,y: 615},
+                    suffix: 'rem',
+                    speed: 20,
+                    pxToRem: 192,
+                    className: 'arm-block',
+                    template: '',
+                    border: {top: 0, bottom: 1080, left: 0, right: 1920},
+                    detectBorder: {top: true, bottom: false, left: false, right: false},
+                    borderCallback: function(e) {
+                        oFight.checkState();
+                        e.target.remove();
+                    }
+                },
+                extend: {}
+            }
+        ]).setTrack({   //生成道路
+            node: document.getElementById('J_track'),
+            parameter: {
+                type: 'top',
+                suffix: 'rem',
+                speed: 10,
+                start: 0,
+                end: 842,
+                pxToRem: 192
+            }
+        });
+
+        //生成碰撞检测
+        var coll = game.collision.register({
+                name: 'fight',
+                obj1: game.lead,
+                obj2: game.monster['arms'].getSingles(),
+                state: true,
+                scope: 70,
+                scopeX: 70,
+                scopeY: 70,
+
+                callback: function(obj1, obj2) {
+//                    loop.stop();
+                    game.lead.getDOMNode().classList.add('fight');
+                    game.lead.fight();
+                    var blood = game.lead.getBlood();
+
+                    game.monster['arms'].remove(obj2.id);
+                    document.getElementById('J_line').style.width = blood + '%';
+
+                    if (blood <= 0) {
+                        loop.end();
+                    } else {
+
+                        setTimeout(function() {
+                            game.lead.getDOMNode().classList.remove('fight');
+//                            loop.begin();
+                            oFight.checkState();
+                        }, 500);
+                    }
+                }
+            });
+
+        //生成loop
+        var loop = game.loop.frame(function() {
+                coll.detect();
+                this.track.run();
+
+                runMonster();
+
+                game.monster['arms'].getSingles().forEach(function(item) {
+                    item.up();
+                });
+            }).registerEnd(function() {
+
+            }).registerStop(function() {
+
+            }).openTime().begin().loop();
+
+        //时间显示
+        var oTime = document.getElementById('J_time');
+        function showTime() {
+            //获取loop中记录数据
+            var time = parseInt(loop.getTime().runTime / 1000, 10);
+            var nowTime = 30 - time;
+
+
+            if (nowTime <= 0) {
+                nowTime = 0;
+                loop.end();
+            } else {
+                setTimeout(showTime, 1000);
+            }
+
+            oTime.innerHTML = nowTime;
+        }
+        showTime();
+</script>
+</body>
+</html>

@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="game-main">
+        <div id="J_stage" class="stage">
+            <!--<div id="J_bg" class="bg"></div>-->
+            <!--<div id="J_lead" class="me"></div>-->
+            <div class="lawn"></div>
+            <div id="J-mask" class="mask"></div>
+            <div class="block"></div>
+            <div id="J-time" class="time"><span class="t">60</span>秒</div>
+            <div id="J-view1" class="view1"></div>
+            <div id="J-view" class="arm-view"></div>
+            <div id="J-monster" class="monster-block" style="display: none">
+                <div class="head-block">
+                    <div class="now-monster h-1"></div>
+                </div>
+                <div class="bar">
+                    <div class="blood">
+                        <div class="blood-bar">
+                            <div class="blood-bar-line"></div>
+                        </div>
+                        <div class="line l-1"></div>
+                        <div class="line l-2"></div>
+                        <div class="line l-3"></div>
+                    </div>
+                </div>
+                <div class="heads-block">
+                    <div class="c-head head-1"><div class="die-num"><span id="J-c1">0</span></div></div>
+                    <div class="c-head head-2"><div class="die-num"><span id="J-c2">0</span></div></div>
+                    <div class="c-head head-3"><div class="die-num"><span id="J-c3">0</span></div></div>
+                </div>
+            </div>
+            <div id="J-energy" class="energy-block" style="display: none">
+                <div class="head-block">
+                    <div class="fire-head"></div>
+                    <div class="fire-mask"></div>
+                </div>
+                <div class="bar energy-bar">
+                    <div class="blood">
+                        <div class="blood-bar fire-bar-line">
+                            <div class="energy-bar-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../build/game.js"></script>
+    <script>
+    'use strict';
+    (function () {
+        var img = {
+            block: 'http://gtms04.alicdn.com/tps/i4/TB1ZGPEJXXXXXcIXFXXZGqxJXXX-1245-841.png',
+            view: 'http://gtms01.alicdn.com/tps/i1/TB1LnvwJXXXXXXEaXXXZ6h3JVXX-1142-734.png',
+            botany: 'http://gtms03.alicdn.com/tps/i3/TB1DhIVJXXXXXaAXpXXB3DHVpXX-204-116.png',
+            c: 'http://gtms02.alicdn.com/tps/i2/TB1_.UuJXXXXXb6XpXXB7QhLVXX-680-3430.png',
+            arm: 'http://gtms04.alicdn.com/tps/i4/TB17X7uJXXXXXbVXVXX9sXr5pXX-74-308.png',
+            bar: 'http://gtms04.alicdn.com/tps/i4/TB1_fsvJXXXXXcFXFXXJKCkRpXX-398-94.png',
+            blood: 'http://gtms02.alicdn.com/tps/i2/TB11toxJXXXXXbzXFXXJ3YU.VXX-1-12.png',
+            head: 'http://gtms03.alicdn.com/tps/i3/TB124klJXXXXXXBapXXFxkMTFXX-501-77.png',
+            time: 'http://gtms02.alicdn.com/tps/i2/TB1HmIDJXXXXXXKXFXXvlrpFFXX-145-96.png',
+            talk: 'http://gtms01.alicdn.com/tps/i1/TB1ihcYJXXXXXazXXXXohid5pXX-329-254.png'
+        };
+
+        var nodeMonster = document.getElementById('J-monster');
+        var nodeEnergy = document.getElementById('J-energy');
+        var nodeTime = document.getElementById('J-time');
+        var nodeT = nodeTime.querySelectorAll('.t')[0];
+
+        var bloodBar = nodeMonster.querySelectorAll('.blood-bar-line')[0];
+        var eBarP = nodeEnergy.querySelectorAll('.fire-bar-line')[0];
+        var eBar = nodeEnergy.querySelectorAll('.energy-bar-line')[0];
+        var eMask = nodeEnergy.querySelectorAll('.fire-mask')[0];
+        var fireBar = null;
+        var nowMonster = null;
+
+        var config = {
+            stage: {
+                width: 1142,
+                height: 734
+            },
+            view: {
+                width: 1142,
+                height: 734
+            },
+            botany: {
+                width: 68,
+                height: 116,
+                fire_time: 400,
+                gif: [
+                    'b-1',
+                    'b-2',
+                    'b-3',
+                    'b-2',
+                    'b-1',
+                    'b-2'
+                ]
+            },
+            c: {
+                entry: 1142,
+                top: -80,
+                left: ['left-1',
+                    'left-2',
+                    'left-3',
+                    'left-4',
+                    'left-5',
+                    'left-4',
+                    'left-3',
+                    'left-2'],
+                right: ['right-1',
+                    'right-2',
+                    'right-3',
+                    'right-4',
+                    'right-5',
+                    'right-4',
+                    'right-3',
+                    'right-2'],
+                left_fight: ['left-fight-1',
+                    'left-fight-2',
+                    'left-fight-3',
+                    'left-fight-4',
+                    'left-fight-5',
+                    'left-fight-4',
+                    'left-fight-3',
+                    'left-fight-2'],
+                right_fight: ['right-fight-1',
+                    'right-fight-2',
+                    'right-fight-3',
+                    'right-fight-4',
+                    'right-fight-5',
+                    'right-fight-4',
+                    'right-fight-3',
+                    'right-fight-2'],
+                left_die: ['left-die-1',
+                    'left-die-2',
+                    'left-die-3',
+                    'left-die-4'],
+                right_die: ['right-die-1',
+                    'right-die-2',
+                    'right-die-3',
+                    'right-die-4']
+            },
+            c1: {
+                width: 131,
+                height: 212,
+                top: -113,
+                speed: 4,
+                move_time: 800,
+                die_time: 800,
+                position: {
+                    left: 150,
+                    right: 860
+                },
+                int: 1,
+                talk: [
+                    '我才不会告诉你长按可以发射火弹。',
+                    '见过那个戴帽子的僵尸吗？他是我哥。',
+                    '我停下的时候，说明我在思考人生。',
+                    '你知道打死几只僵尸可以抽到大奖吗？',
+                    '走累了可以休息，心累了怎么办。',
+                    '从前有一只僵尸，他走着走着，就不见了。',
+                    '哎谁能教教我怎么跳广场舞？',
+                    '告诉你个小秘密，人家是女僵尸哦~',
+                    '听说打死我有可能能拿到羞羞的礼物。',
+                    '我很丑，但是我很灵活。'
+                ],
+                talkPosition: {
+                    left: 700,
+                    right: 310
+                },
+                talkTime: 1500
+            },
+            c2: {
+                width: 131,
+                height: 245,
+                top: -113,
+                speed: 6,
+                move_time: 800,
+                die_time: 800,
+                position: {
+                    left: 150,
+                    right: 860
+                },
+                int: 2,
+                talk: [
+                    '我才不会告诉你长按可以发射火弹。',
+                    '见过那个戴帽子的僵尸吗？他是我哥。',
+                    '我停下的时候，说明我在思考人生。',
+                    '你知道打死几只僵尸可以抽到大奖吗？',
+                    '走累了可以休息，心累了怎么办。',
+                    '从前有一只僵尸，他走着走着，就不见了。',
+                    '哎谁能教教我怎么跳广场舞？',
+                    '告诉你个小秘密，人家是女僵尸哦~',
+                    '听说打死我有可能能拿到羞羞的礼物。',
+                    '我很丑，但是我很灵活。'
+
+                ],
+                talkPosition: {
+                    left: 700,
+                    right: 310
+                },
+                talkTime: 1500
+            },
+            c3: {
+                width: 131,
+                height: 245,
+                top: -113,
+                speed: 4,
+                move_time: 800,
+                die_time: 800,
+                position: {
+                    left: 150,
+                    right: 860
+                },
+                int: 3,
+                talk: [
+                    '我才不会告诉你长按可以发射火弹。',
+                    '见过那个戴帽子的僵尸吗？他是我哥。',
+                    '我停下的时候，说明我在思考人生。',
+                    '你知道打死几只僵尸可以抽到大奖吗？',
+                    '走累了可以休息，心累了怎么办。',
+                    '从前有一只僵尸，他走着走着，就不见了。',
+                    '哎谁能教教我怎么跳广场舞？',
+                    '告诉你个小秘密，人家是女僵尸哦~',
+                    '听说打死我有可能能拿到羞羞的礼物。',
+                    '我很丑，但是我很灵活。'
+                ],
+                talkPosition: {
+                    left: 700,
+                    right: 310
+                },
+                talkTime: 1500
+            },
+            arm: {
+                width: 74,
+                height: 77,
+                speed: 12,
+                die_time: 200,
+                press_time: 2000,
+                gif: ['die']
+            },
+            fire_arm: {
+                width: 74,
+                height: 77,
+                speed: 20,
+                die_time: 200,
+                press_time: 2000,
+                gif: ['die']
+            }
+        };
+
+        var record = {
+            c1: 0,
+            c2: 0,
+            c3: 0
+        };
+
+        var loopFunc = Game.util.loopFunc;
+        var game = null;
+
+        function createGame() {
+            record = {
+                c1: 0,
+                c2: 0,
+                c3: 0
+            };
+
+            if (game) {
+                game.delete();
+            }
+
+            game = new Game({
+                config: {
+                    suffix: 'rem',
+                    pxToRem: 192
+                },
+
+                //加载资源
+//            resource: {
+//
+//            },
+                //生成舞台
+                stage: {
+                    node: document.getElementById('J_stage')
+                },
+                integration: {
+                    parameter: {
+                        initInt: 0
+                    }
+                },
+
+                //生成lead
+                lead: {
+                    parameter: {
+                        width: config.botany.width,
+                        height: config.botany.height,
+                        target: '#J-view',
+                        position: {x: config.stage.width/2 - config.botany.width/2,y: config.stage.height - config.botany.height - 42},
+                        className: 'botany',
+                        style: {
+                            'backgroundImage': 'url('+img.botany+')'
+                        }
+                    },
+                    gif: {
+                        change: config.botany.gif,
+
+                        time: config.botany.fire_time,
+                        state: false,
+                        loop: 1
+                    },
+                    extend: {
+                    }
+                },
+
+                //生成怪兽模板
+                monster: [
+                    {
+                        name: 'c1',
+                        init: function() {
+
+                        },
+                        parameter: {
+                            width: config.c1.width,
+                            height: config.c1.height,
+                            target: '#J-view1',
+                            position: {x: config.c.entry,y: config.c1.top},
+                            speed: config.c1.speed,
+                            className: 'corpse corpse1',
+                            template: '<div class="talk-block left-block" style="background-image: url('+img.talk+')">' +
+                                    '<div class="text">' +
+                                        '<p class="t-block"></p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="talk-block right-block" style="background-image: url('+img.talk+')">' +
+                                    '<div class="text">' +
+                                        '<p class="t-block"></p>' +
+                                    '</div>' +
+                                    '</div>',
+                            style: {
+                                'backgroundImage': 'url('+img.c+')'
+                            }
+                        },
+                        gif: [
+                            {
+                                name: 'left',
+                                change: config.c.left,
+
+                                time: config.c1.move_time,
+                                state: true
+                            },
+                            {
+                                name: 'right',
+                                change: config.c.right,
+
+                                time: config.c1.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'left-fight',
+                                change: config.c.left_fight,
+
+                                time: config.c1.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'right-fight',
+                                change: config.c.right_fight,
+
+                                time: config.c1.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'left-die',
+                                change: config.c.left_die,
+
+                                time: config.c1.die_time,
+                                state: false,
+                                loop: 1
+                            },
+                            {
+                                name: 'right-die',
+                                change: config.c.right_die,
+
+                                time: config.c1.die_time,
+                                state: false,
+                                loop: 1
+                            }
+                        ],
+                        extend: {
+                            direction: 'left',
+                            getDir: function() {
+                                return this.direction;
+                            },
+                            setDir: function(dir) {
+                                this.direction = dir;
+                            },
+                            allBlood: 4,
+                            blood: 4,
+                            fight: function() {
+                                return --this.blood;
+                            },
+                            getBlood: function() {
+                                return this.blood;
+                            }
+                        }
+                    },
+                    {
+                        name: 'c2',
+                        init: function() {
+
+                        },
+                        parameter: {
+                            width: config.c2.width,
+                            height: config.c2.height,
+                            target: '#J-view1',
+                            position: {x: config.c.entry,y: config.c2.top},
+                            speed: config.c2.speed,
+                            className: 'corpse corpse2',
+                            template: '<div class="talk-block left-block" style="background-image: url('+img.talk+')">' +
+                                    '<div class="text">' +
+                                    '<p class="t-block"></p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="talk-block right-block" style="background-image: url('+img.talk+')">' +
+                                    '<div class="text">' +
+                                    '<p class="t-block"></p>' +
+                                    '</div>' +
+                                    '</div>',
+                            style: {
+                                'backgroundImage': 'url('+img.c+')'
+                            }
+                        },
+                        gif: [
+                            {
+                                name: 'left',
+                                change: config.c.left,
+
+                                time: config.c2.move_time,
+                                state: true
+                            },
+                            {
+                                name: 'right',
+                                change: config.c.right,
+
+                                time: config.c2.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'left-fight',
+                                change: config.c.left_fight,
+
+                                time: config.c2.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'right-fight',
+                                change: config.c.right_fight,
+
+                                time: config.c2.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'left-die',
+                                change: config.c.left_die,
+
+                                time: config.c2.die_time,
+                                state: false,
+                                loop: 1
+                            },
+                            {
+                                name: 'right-die',
+                                change: config.c.right_die,
+
+                                time: config.c2.die_time,
+                                state: false,
+                                loop: 1
+                            }
+                        ],
+                        extend: {
+                            direction: 'left',
+                            getDir: function() {
+                                return this.direction;
+                            },
+                            setDir: function(dir) {
+                                this.direction = dir;
+                            },
+                            allBlood: 4,
+                            blood: 4,
+                            fight: function() {
+                                return --this.blood;
+                            },
+                            getBlood: function() {
+                                return this.blood;
+                            }
+                        }
+                    },
+                    {
+                        name: 'c3',
+                        init: function() {
+
+                        },
+                        parameter: {
+                            width: config.c3.width,
+                            height: config.c3.height,
+                            target: '#J-view1',
+                            position: {x: config.c.entry,y: config.c3.top},
+                            speed: config.c3.speed,
+                            className: 'corpse corpse3',
+                            template: '<div class="talk-block left-block" style="background-image: url('+img.talk+')">' +
+                                    '<div class="text">' +
+                                    '<p class="t-block"></p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="talk-block right-block" style="background-image: url('+img.talk+')">' +
+                                    '<div class="text">' +
+                                    '<p class="t-block"></p>' +
+                                    '</div>' +
+                                    '</div>',
+                            style: {
+                                'backgroundImage': 'url('+img.c+')'
+                            }
+                        },
+                        gif: [
+                            {
+                                name: 'left',
+                                change: config.c.left,
+
+                                time: config.c3.move_time,
+                                state: true
+                            },
+                            {
+                                name: 'right',
+                                change: config.c.right,
+
+                                time: config.c3.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'left-fight',
+                                change: config.c.left_fight,
+
+                                time: config.c3.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'right-fight',
+                                change: config.c.right_fight,
+
+                                time: config.c3.move_time,
+                                state: false
+                            },
+                            {
+                                name: 'left-die',
+                                change: config.c.left_die,
+
+                                time: config.c3.die_time,
+                                state: false,
+                                loop: 1
+                            },
+                            {
+                                name: 'right-die',
+                                change: config.c.right_die,
+
+                                time: config.c3.die_time,
+                                state: false,
+                                loop: 1
+                            }
+                        ],
+                        extend: {
+                            direction: 'left',
+                            getDir: function() {
+                                return this.direction;
+                            },
+                            setDir: function(dir) {
+                                this.direction = dir;
+                            },
+                            allBlood: 8,
+                            blood: 8,
+                            fight: function() {
+                                return --this.blood;
+                            },
+                            getBlood: function() {
+                                return this.blood;
+                            }
+                        }
+                    },
+                    {
+                        name: 'arm',
+                        parameter: {
+                            width: config.arm.width,
+                            height: config.arm.height,
+                            target: '#J-view',
+                            position: {x: config.stage.width/2 - config.arm.width/2, y: config.stage.height - config.botany.height - 42},
+                            speed: config.arm.speed,
+                            className: 'arm',
+                            template: '',
+                            style: {
+                                'backgroundImage': 'url('+img.arm+')'
+                            },
+                            border: {top: 0, bottom: 1080, left: 0, right: 1920},
+                            detectBorder: {top: true, bottom: false, left: false, right: false},
+                            borderCallback: function(e) {
+                                e.target.remove();
+                            }
+                        },
+                        gif: {
+                            change: config.arm.gif,
+
+                            time: config.arm.die_time,
+                            state: false,
+                            loop: 1
+                        },
+                        extend: {}
+                    },
+                    {
+                        name: 'fire-arm',
+                        parameter: {
+                            width: config.arm.width,
+                            height: config.arm.height,
+                            target: '#J-view',
+                            position: {x: config.stage.width/2 - config.fire_arm.width/2, y: config.stage.height - config.botany.height - 42},
+                            speed: config.arm.speed,
+                            className: 'fire-arm',
+                            template: '',
+                            style: {
+                                'backgroundImage': 'url('+img.arm+')'
+                            },
+                            border: {top: 0, bottom: 1080, left: 0, right: 1920},
+                            detectBorder: {top: true, bottom: false, left: false, right: false},
+                            borderCallback: function(e) {
+                                e.target.remove();
+                            }
+                        },
+                        gif: {
+                            change: config.fire_arm.gif,
+
+                            time: config.fire_arm.die_time,
+                            state: false,
+                            loop: 1
+                        },
+                        extend: {}
+                    }
+                ],
+
+                //生成碰撞检测
+                collision: [
+                    {
+                        name: 'fight-c1',
+                        obj1: function() {
+                            return this.monster['c1'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['arm'].getSingles();
+                        },
+                        state: true,
+                        scope: 65,
+
+                        callback: function(c1, obj2) {
+                            fight(c1, obj2, 'c1');
+                        }
+                    },
+                    {
+                        name: 'fight-c1-fire',
+                        obj1: function() {
+                            return this.monster['c1'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['fire-arm'].getSingles();
+                        },
+                        state: true,
+                        scope: 65,
+
+                        callback: function(c1, obj2) {
+                            fightFire(c1, obj2, 'c1');
+                        }
+                    },
+                    {
+                        name: 'fight-c2',
+                        obj1: function() {
+                            return this.monster['c2'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['arm'].getSingles();
+                        },
+                        state: false,
+                        scope: 65,
+
+                        callback: function(c2, obj2) {
+                            fight(c2, obj2, 'c2');
+                        }
+                    },
+                    {
+                        name: 'fight-c2-fire',
+                        obj1: function() {
+                            return this.monster['c2'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['fire-arm'].getSingles();
+                        },
+                        state: false,
+                        scope: 65,
+
+                        callback: function(c2, obj2) {
+                            fightFire(c2, obj2, 'c2');
+                        }
+                    },
+                    {
+                        name: 'fight-c3',
+                        obj1: function() {
+                            return this.monster['c3'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['arm'].getSingles();
+                        },
+                        state: false,
+                        scope: 65,
+
+                        callback: function(c3, obj2) {
+                            fight(c3, obj2, 'c3');
+                        }
+                    },
+                    {
+                        name: 'fight-c3-fire',
+                        obj1: function() {
+                            return this.monster['c3'].getSingles();
+                        },
+                        obj2: function() {
+                            return this.monster['fire-arm'].getSingles();
+                        },
+                        state: false,
+                        scope: 65,
+
+                        callback: function(c3, obj2) {
+                            fightFire(c3, obj2, 'c3');
+                        }
+                    }
+                ],
+
+                //生成loop
+                loop: {
+                    extend: {
+                    },
+                    init: function() {
+
+                    },
+                    frameCallback: function() {
+                        this.collision.detect();
+
+                        this.monster['arm'].getSingles().forEach(function(item) {
+                            item.up();
+                        });
+
+                        this.monster['fire-arm'].getSingles().forEach(function(item) {
+                            item.up();
+                        });
+
+                        cmove('c1');
+                        cmove('c2');
+                        cmove('c3');
+
+                    },
+                    endCallback: function() {
+//                        document.getElementById('J-mask').style.display = 'block';
+                        removeEvent();
+                    },
+                    stopCallback: function() {
+
+                    },
+                    isWriteTime: true,
+                    isFps: false
+                }
+            });
+
+            var source = [];
+            for (var k in img) {
+                if (hasOwnProperty.call(img, k)) {
+                    source.push(img[k]);
+                }
+            }
+            game.setResource({
+                source: source,
+
+                success: function(arr) {
+                    begin();
+                },
+                error: function(err) {
+//                    console.log(err);
+                }
+            });
+
+            render();
+        }
+
+        function render() {
+            nodeMonster = document.getElementById('J-monster');
+            nodeEnergy = document.getElementById('J-energy');
+            nodeTime = document.getElementById('J-time');
+            nodeT = nodeTime.querySelectorAll('.t')[0];
+
+            bloodBar = nodeMonster.querySelectorAll('.blood-bar-line')[0];
+            eBarP = nodeEnergy.querySelectorAll('.fire-bar-line')[0];
+            eBar = nodeEnergy.querySelectorAll('.energy-bar-line')[0];
+            eMask = nodeEnergy.querySelectorAll('.fire-mask')[0];
+
+            nodeTime.style.backgroundImage = 'url('+img.time+')';
+
+            nodeMonster.querySelectorAll('.head-block')[0].style.backgroundImage = 'url('+img.bar+')';
+            nodeEnergy.querySelectorAll('.head-block')[0].style.backgroundImage = 'url('+img.bar+')';
+            nodeMonster.querySelectorAll('.bar')[0].style.backgroundImage = 'url('+img.bar+')';
+            nodeEnergy.querySelectorAll('.bar')[0].style.backgroundImage = 'url('+img.bar+')';
+
+            fireBar = nodeEnergy.querySelectorAll('.energy-bar-line')[0];
+
+
+            bloodBar.style.backgroundImage = 'url('+img.blood+')';
+
+            eBar.style.backgroundImage = 'url('+img.bar+')';
+
+            nowMonster = nodeMonster.querySelectorAll('.now-monster')[0];
+            nowMonster.style.backgroundImage = 'url('+img.head+')';
+            Array.prototype.slice.call(nodeMonster.querySelectorAll('.c-head')).forEach(function(node) {
+                node.style.backgroundImage = 'url('+img.head+')';
+            });
+            nodeEnergy.querySelectorAll('.fire-head')[0].style.backgroundImage = 'url('+img.head+')';
+
+
+        }
+
+        var Timer = null;
+        var timer = null;
+        var time = 0;
+//        var fireTimer = null;
+        var isFire = false;
+        var isOk = false;
+        var isKeydown = false;
+        var isKeydownTime = false;
+
+        var isTalk = false;
+        var isOne = true;
+        function cmove(ctext) {
+            if (isTalk) {
+                return;
+            }
+
+            var c = game.monster[ctext].getSingles();
+            if (c.length) {
+                c = c[0];
+                if (c.direction === 'left') {
+                    c.left();
+                    var x = c.getPosition().x;
+                    if (x <= config[ctext].position.left) {
+                        c.gif['left'].clear();
+                        c.gif['right'].run();
+                        c.direction = 'right';
+
+                        return;
+                    }
+
+                    var len = config[ctext].talk.length;
+                    var random = parseInt(Math.random()*len*3, 10);
+
+                    if (isOne || random >= len) {
+                        return;
+                    }
+
+                    if (x >= config[ctext].talkPosition.left - config[ctext].speed/2 &&  x < config[ctext].talkPosition.left + config[ctext].speed/2) {
+                        isTalk = true;
+                        c.gif['left'].stop();
+                        var node = c.getDOM().querySelectorAll('.left-block')[0];
+                        node.querySelectorAll('.t-block')[0].innerHTML = config[ctext].talk[random];
+                        node.classList.add('talk');
+
+                        setTimeout(function() {
+                            isTalk = false;
+                            node.classList.remove('talk');
+                            c.gif['left'].go();
+                        }, config[ctext].talkTime);
+                    }
+
+                } else if (c.direction === 'right') {
+                    c.right();
+                    x = c.getPosition().x;
+                    if (x >= config[ctext].position.right) {
+                        c.gif['right'].clear();
+                        c.gif['left'].run();
+                        c.direction = 'left';
+
+                        return;
+                    }
+
+                    len = config[ctext].talk.length;
+                    random = parseInt(Math.random()*len*3, 10);
+
+                    if (isOne || random >= len) {
+                        return;
+                    }
+
+                    if (x >= config[ctext].talkPosition.right - config[ctext].speed/2 &&  x < config[ctext].talkPosition.right + config[ctext].speed/2) {
+                        isTalk = true;
+                        c.gif['right'].stop();
+                        node = c.getDOM().querySelectorAll('.right-block')[0];
+                        node.querySelectorAll('.t-block')[0].innerHTML = config[ctext].talk[random];
+                        node.classList.add('talk');
+
+                        setTimeout(function() {
+                            isTalk = false;
+                            node.classList.remove('talk');
+                            c.gif['right'].go();
+                        }, config[ctext].talkTime);
+                    }
+                }
+            }
+        }
+
+
+        function makeC() {
+            var coll = game.collision.getCollision();
+            for (var i = 0, len = coll.length;i < len;i++) {
+                game.collision.closeByName(coll[i].name);
+            }
+            nowMonster.classList.remove('h-1');
+            nowMonster.classList.remove('h-2');
+            nowMonster.classList.remove('h-3');
+
+            barLoop(-100, 0, function(value) {
+                bloodBar.style.webkitTransform = 'translate3d('+value+'%, 0, 0)';
+            }, 500);
+
+            if (isOne) {
+                game.collision.openByName('fight-c1');
+                game.collision.openByName('fight-c1-fire');
+                game.monster['c1'].make();
+                nowMonster.classList.add('h-1');
+                return;
+            }
+
+            var random = parseInt(Math.random() * 10, 10);
+
+            if (random < 1) {
+                game.collision.openByName('fight-c3');
+                game.collision.openByName('fight-c3-fire');
+                game.monster['c3'].make();
+                nowMonster.classList.add('h-2');
+                return;
+            }
+
+            if (random < 5) {
+                game.collision.openByName('fight-c2');
+                game.collision.openByName('fight-c2-fire');
+                game.monster['c2'].make();
+                nowMonster.classList.add('h-3');
+                return;
+            }
+
+            game.collision.openByName('fight-c1');
+            game.collision.openByName('fight-c1-fire');
+            game.monster['c1'].make();
+            nowMonster.classList.add('h-1');
+        }
+
+        function fight(c, arm, ctext) {
+            var oldBlood = c.getBlood();
+            var blood = c.fight();
+            var dir = c.direction;
+            var frame = c.gif[dir].getShowFrame();
+            c.gif[dir+'-fight'].run(frame);
+
+            loopFunc(function() {
+                c.gif[dir + '-fight'].clear();
+            });
+
+            var oldP = oldBlood/c.allBlood*100 - 100;
+            var p = blood/c.allBlood*100 - 100;
+            barLoop(oldP, p, function(value) {
+                bloodBar.style.webkitTransform = 'translate3d('+value+'%, 0, 0)';
+            }, 500);
+//            bloodBar.style.width = blood/c.allBlood*100 + '%';
+
+            if (blood <= 0) {
+                die(c, dir, ctext);
+            }
+            arm.remove(function() {
+                this.gif.run();
+            }, config.arm.die_time);
+        }
+
+        function fightFire(c, arm, ctext) {
+            var blood = 0;
+            var oldBlood = c.getBlood();
+            for (var i = 0;i < 4;i++) {
+                blood = c.fight();
+            }
+            blood = blood < 0 ? 0 : blood;
+            var dir = c.direction;
+            var frame = c.gif[dir].getShowFrame();
+            c.gif[dir+'-fight'].run(frame);
+
+            loopFunc(function() {
+                c.gif[dir + '-fight'].clear();
+            });
+
+            var oldP = oldBlood/c.allBlood*100 - 100;
+            var p = blood/c.allBlood*100 - 100;
+            barLoop(oldP, p, function(value) {
+                bloodBar.style.webkitTransform = 'translate3d('+value+'%, 0, 0)';
+            }, 500);
+//            bloodBar.style.width = blood/c.allBlood*100 + '%';
+
+            if (blood <= 0) {
+                die(c, dir, ctext);
+            }
+            arm.remove(function() {
+                this.gif.run();
+            }, config.fire_arm.die_time);
+        }
+
+        function barLoop(start, end, cb, time) {
+            var frame = parseInt(time / 1000 * 60);
+            var num = (end - start) / frame;
+
+            function loop() {
+                start += num;
+                if (num < 0) {
+                    if (start > end) {
+                        cb(start);
+                        loopFunc(loop);
+                    } else {
+                        cb(end);
+                    }
+                } else {
+                    if (start < end) {
+                        cb(start);
+                        loopFunc(loop);
+                    } else {
+                        cb(end);
+                    }
+                }
+            }
+            loopFunc(loop);
+        }
+
+        function die(c, dir, ctext) {
+            c.remove(function() {
+                isOne = false;
+                c.gif[dir+'-die'].run();
+
+                setTimeout(function() {
+                    makeC();
+                }, config[ctext].die_time);
+            }, config[ctext].die_time);
+
+            record[ctext]++;
+            game.integration.add(config[ctext].int);
+            document.getElementById('J-'+ctext).innerHTML = record[ctext];
+        }
+
+
+        function begin() {
+            Timer = null;
+            timer = null;
+            time = 0;
+//        var fireTimer = null;
+            isFire = false;
+            isOk = false;
+            isKeydown = false;
+            isKeydownTime = false;
+
+            isTalk = false;
+            isOne = true;
+
+            document.getElementById('J-c1').innerHTML = record['c1'];
+            document.getElementById('J-c2').innerHTML = record['c2'];
+            document.getElementById('J-c3').innerHTML = record['c3'];
+
+
+            document.getElementById('J-mask').style.display = 'none';
+            nodeMonster.style.display = 'block';
+            nodeEnergy.style.display = 'block';
+            addEvent();
+            game.loop.begin().loop();
+            makeC();
+
+            nodeT.innerHTML = 60;
+            nodeT.classList.remove('active');
+
+            function runTime() {
+                var time = 60 - parseInt(game.loop.getTime().runTime/1000, 10);
+                nodeT.innerHTML = time;
+
+                if (time <= 10) {
+                    nodeT.classList.add('active');
+                } else {
+                    nodeT.classList.remove('active');
+                }
+
+                if (time <= 0) {
+                    game.loop.end();
+                } else {
+                    Timer = setTimeout(runTime, 1000);
+                }
+
+            }
+            clearTimeout(Timer);
+            Timer = setTimeout(runTime, 1000);
+        }
+
+        function barRun() {
+            if (isOk) {
+                var num = game.loop.getTime().runTime - time;
+
+                if (num >= config.arm.press_time) {
+                    isFire = true;
+//                        eBarP.style.webkitTransform = 'translate(0, 0)';
+//                        eBar.style.webkitTransform = 'scaleX(1)';
+//                    eBar.style.width = '100%';
+                    eBar.style.webkitTransform = 'translate3d(0, 0, 0)';
+
+                    eMask.classList.add('ok');
+                }
+                else {
+                    var p = num/config.arm.press_time;
+////                        eBarP.style.webkitTransform = 'translate(-'+((1-p)*100/2)+'%, 0)';
+////                        eBar.style.webkitTransform = 'scaleX('+p+')';
+//                    eBar.style.width = p*100+'%';
+                    eBar.style.webkitTransform = 'translate3d('+((p-1)*100)+'%, 0, 0)';
+                }
+
+                loopFunc(barRun);
+            }
+        }
+
+        function keydown(e) {
+            var keyCode = e.keyCode;
+
+            if (game.loop.getState() === 0) {
+                return;
+            }
+
+            if (isKeydown || isKeydownTime) {
+                return;
+            }
+
+            if (keyCode === 13) {
+                isKeydown = true;
+
+                time = game.loop.getTime().runTime;
+                timer = setTimeout(function() {
+                    isOk = true;
+                    barRun();
+//                        fireBar.classList.add('fire');
+
+//                        fireTimer = setTimeout(function() {
+//                            isFire = true;
+//                            eMask.classList.add('ok');
+//                        }, config.arm.press_time);
+                }, 200);
+            }
+        }
+
+        function keyup(e) {
+            var keyCode = e.keyCode;
+
+            if (game.loop.getState() === 0) {
+                return;
+            }
+
+            if (isKeydownTime) {
+                return;
+            }
+
+            if (keyCode === 13) {
+//                    eBarP.style.webkitTransform = 'translate(-50%, 0)';
+//                    eBar.style.webkitTransform = 'scaleX(0)';
+                eBar.style.webkitTransform = 'translate3d(-100%, 0, 0)';
+
+//                    fireBar.classList.remove('fire');
+
+                isKeydown = false;
+                isKeydownTime = true;
+                setTimeout(function() {
+                    isKeydownTime = false;
+                }, 800);
+
+                if (isFire) {
+
+                    game.lead.gif.run();
+                    game.monster['fire-arm'].make();
+                    eMask.classList.remove('ok');
+                } else {
+                    game.lead.gif.run();
+                    game.monster['arm'].make();
+                }
+                time = 0;
+                isOk = false;
+                isFire = false;
+                clearTimeout(timer);
+//                    clearTimeout(fireTimer);
+            }
+        }
+
+        function addEvent() {
+//            function keydown(e) {
+//                var keyCode = e.keyCode;
+//
+//                if (game.loop.getState() === 0) {
+//                    return;
+//                }
+//
+//                if (isKeydown || isKeydownTime) {
+//                    return;
+//                }
+//
+//                if (keyCode === 13) {
+//                    isFire = false;
+//                    isKeydown = true;
+//                    isKeydownTime = true;
+//
+//                    game.lead.gif.run();
+//                    game.monster['arm'].make();
+//
+//                    time = game.loop.getTime().runTime;
+//                    timer = setTimeout(function() {
+//                        isOk = true;
+//                        barRun();
+//                    }, 400);
+//
+//                    setTimeout(function() {
+//                        isKeydownTime = false;
+//                    }, 1000);
+//                }
+//            }
+//
+//            function keyup(e) {
+//                var keyCode = e.keyCode;
+//
+//                if (game.loop.getState() === 0) {
+//                    return;
+//                }
+//
+//                if (keyCode === 13) {
+////                    eBarP.style.webkitTransform = 'translate(-50%, 0)';
+////                    eBar.style.webkitTransform = 'scaleX(0)';
+//                    eBar.style.width = '0';
+//
+//                    if (isFire) {
+//                        isFire = false;
+//                        isKeydownTime = true;
+//                        game.lead.gif.run();
+//                        game.monster['fire-arm'].make();
+//                        eMask.classList.remove('ok');
+//
+//                        setTimeout(function() {
+//                            isKeydownTime = false;
+//                        }, 1000);
+//                    }
+//                    time = 0;
+//                    isOk = false;
+//                    clearTimeout(timer);
+//                    isKeydown = false;
+//                }
+//            }
+
+            setTimeout(function() {
+                document.addEventListener('keydown', keydown, false);
+                document.addEventListener('keyup', keyup, false);
+            },20);
+        }
+
+        function removeEvent() {
+            document.removeEventListener('keyup', keyup);
+            document.removeEventListener('keydown', keydown);
+        }
+
+        function init() {
+            document.getElementById('J-mask').style.display = 'block';
+            createGame();
+        }
+        init();
+    })();
+    </script>
+</body>
+</html>
